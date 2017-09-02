@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="bapspatil.flickoff.DetailsActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/poster_image_view"
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            android:contentDescription="This is a poster for the movie."
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/rating_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="70dp"
+            android:text="RATING"
+            android:textColor="#FFF"
+            android:textSize="12sp"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintLeft_toRightOf="@+id/poster_image_view"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/rating_value_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="#FFF"
+            android:textSize="26sp"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintLeft_toRightOf="@+id/poster_image_view"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rating_label_tv"
+            tools:text="10.0" />
+
+        <TextView
+            android:id="@+id/date_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="48dp"
+            android:text="RELEASE DATE"
+            android:textColor="#FFF"
+            android:textSize="12sp"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintLeft_toRightOf="@+id/poster_image_view"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rating_value_tv" />
+
+        <TextView
+            android:id="@+id/date_value_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="#FFF"
+            android:textSize="26sp"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintLeft_toRightOf="@+id/poster_image_view"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date_label_tv"
+            tools:text="12/13/1989" />
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textColor="#FFF"
+            android:textSize="32sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/poster_image_view"
+            tools:text="A Very Long Title Of The Movie" />
+
+        <TextView
+            android:id="@+id/plot_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="#FFF"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_tv"
+            tools:text="This is gonna be a plot synopsis of the movie. This data will be fetched by the TMDB API. And this will contain info of the movie script." />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
