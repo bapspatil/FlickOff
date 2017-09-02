@@ -41,7 +41,6 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         Movie theMovie = mMoviesArrayList.get(position);
         Picasso.with(mContext)
                 .load(theMovie.getPosterPath())
-                .resize(200,300)
                 .into(holder.mPosterImageView);
     }
 

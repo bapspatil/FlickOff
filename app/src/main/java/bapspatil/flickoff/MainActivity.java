@@ -7,19 +7,25 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
+
+import it.gmariotti.recyclerview.adapter.SlideInBottomAnimatorAdapter;
 
 public class MainActivity extends AppCompatActivity implements MovieRecyclerViewAdapter.ItemClickListener {
 
     private MovieRecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
-    private ArrayList<Movie> movieArray;
+    private ProgressBar mProgressBar;
+    private ArrayList<Movie> movieArray = new ArrayList<>();
     private String MOVIE_URL = "http://api.themoviedb.org/3/discover/movie";
-    private String MOVIE_POSTER_URL = "http://image.tmdb.org/t/p/w185";
+    private String MOVIE_POSTER_URL = "http://image.tmdb.org/t/p/w500";
     private String sortingTypeSelected = "popularity.desc";
     private Context mContext;
 
@@ -29,13 +35,14 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         setContentView(R.layout.activity_main);
         mContext = getApplicationContext();
 
+        mProgressBar = (ProgressBar) findViewById(R.id.loading_indicator);
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_movies);
         int columns = 2;
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, columns));
 
-
         mAdapter = new MovieRecyclerViewAdapter(mContext, movieArray, this);
-        mRecyclerView.setAdapter(mAdapter);
+        SlideInBottomAnimatorAdapter animatorAdapter = new SlideInBottomAnimatorAdapter(mAdapter, mRecyclerView);
+        mRecyclerView.setAdapter(animatorAdapter);
 
         GetTheMoviesTask getTheMoviesTask = new GetTheMoviesTask();
         getTheMoviesTask.execute(sortingTypeSelected);
@@ -51,6 +58,11 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     private class GetTheMoviesTask extends AsyncTask<String, Void, String> {
 
         @Override
+        protected void onPreExecute() {
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected String doInBackground(String... sortType) {
             if(Connection.hasNetwork(mContext)) {
                 String sortingCriteria = sortType[0];
@@ -62,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
                 String jsonResponse;
                 try {
-                    jsonResponse = Connection.getJSON(builtUri);
+                    jsonResponse = Connection.getResponseFromHttpUrl(new URL(builtUri.toString()));
                     return jsonResponse;
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -75,11 +87,12 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
         @Override
         protected void onPostExecute(String jsonResponse) {
+
+            mProgressBar.setVisibility(View.INVISIBLE);
             try {
-                if (jsonResponse != null) {
                     JSONObject jsonMoviesObject = new JSONObject(jsonResponse);
                     JSONArray jsonMoviesArray = jsonMoviesObject.getJSONArray("results");
-                    for (int i = 0; i <= jsonMoviesArray.length(); i++) {
+                    for (int i = 0; i < jsonMoviesObject.getInt("total_results"); i++) {
                         JSONObject jsonMovie = jsonMoviesArray.getJSONObject(i);
                         Movie movie = new Movie();
                         movie.setPosterPath(MOVIE_POSTER_URL + jsonMovie.getString("poster_path"));
@@ -91,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                         movieArray.add(movie);
                         mAdapter.notifyDataSetChanged();
                     }
-                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
