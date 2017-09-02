@@ -2,8 +2,8 @@ package bapspatil.flickoff;
 
 public class Movie {
 
-    private String posterPath, title, plot, date;
-    private int id, rating;
+    private String posterPath, title, plot, date, rating;
+    private int id;
 
     public String getPosterPath() {
         return posterPath;
@@ -45,11 +45,11 @@ public class Movie {
         this.id = id;
     }
 
-    public int getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 

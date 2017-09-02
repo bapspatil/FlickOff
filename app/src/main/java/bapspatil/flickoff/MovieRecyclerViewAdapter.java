@@ -15,18 +15,15 @@ import java.util.ArrayList;
 public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.MovieViewHolder> {
 
     private ArrayList<Movie> mMoviesArrayList;
-    private LayoutInflater mInflater;
     private Context mContext;
     private ItemClickListener mClickListener;
-    public String MOVIE_URL = "http://api.themoviedb.org/3/discover/movie";
-    public String MOVIE_POSTER_URL = "http://image.tmdb.org/t/p/w185";
+    private String MOVIE_POSTER_URL = "http://image.tmdb.org/t/p/w185";
 
     public interface ItemClickListener {
         void onItemClick(int position);
     }
 
     public MovieRecyclerViewAdapter(Context context, ArrayList<Movie> movieArrayList, ItemClickListener itemClickListener) {
-        this.mInflater = LayoutInflater.from(context);
         this.mContext = context;
         this.mMoviesArrayList = movieArrayList;
         this.mClickListener = itemClickListener;
@@ -34,7 +31,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = mInflater.inflate(R.layout.rv_movie_item, viewGroup, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.rv_movie_item, viewGroup, false);
         MovieViewHolder viewHolder = new MovieViewHolder(view);
         return viewHolder;
     }
@@ -42,7 +39,10 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         Movie theMovie = mMoviesArrayList.get(position);
-        Picasso.with(mContext).load(MOVIE_POSTER_URL + theMovie.getPosterPath()).into(holder.mPosterImageView);
+        Picasso.with(mContext)
+                .load(theMovie.getPosterPath())
+                .resize(200,300)
+                .into(holder.mPosterImageView);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView mPosterImageView;
+        ImageView mPosterImageView;
 
         MovieViewHolder(View itemView) {
             super(itemView);

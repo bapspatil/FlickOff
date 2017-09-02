@@ -5,12 +5,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Scanner;
 
 public class Connection {
 
@@ -23,37 +23,53 @@ public class Connection {
         return isThereNetwork;
     }
 
-    private static final String MOVIES_URL = "https://api.themoviedb.org/3/movie/popular";
-    private static final String API_KEY = "ad6270825ed0e0e15c5c2449a8ebbb77";
-    private static String api_param = "api_key";
+    public static String getJSON(Uri builtUri)
+    {
+        InputStream inputStream;
+        StringBuffer buffer;
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+        String stringJson = null;
 
-    public static URL buildUrl() {
-        Uri builtUri = Uri.parse(MOVIES_URL).buildUpon()
-                .appendQueryParameter(api_param, API_KEY)
-                .build();
-        URL url = null;
         try {
-            url = new URL(builtUri.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return url;
-    }
+            URL url = new URL(builtUri.toString());
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
 
-    public static String getResponseFromHttpUrl(URL url) throws IOException {
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        try {
-            InputStream in = urlConnection.getInputStream();
-            Scanner scanner = new Scanner(in);
-            scanner.useDelimiter("\\A");
-            boolean hasInput = scanner.hasNext();
-            if (hasInput)
-                return scanner.next();
-            else
+
+            inputStream = urlConnection.getInputStream();
+            buffer = new StringBuffer();
+            if (inputStream == null) {
                 return null;
+            }
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line + "\n");
+            }
+
+            if (buffer.length() == 0) {
+                return null;
+            }
+            stringJson = buffer.toString();
+        } catch (IOException e) {
+            return null;
         } finally {
-            urlConnection.disconnect();
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (final IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
+        return stringJson;
     }
 
 }

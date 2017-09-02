@@ -1,5 +1,6 @@
 package bapspatil.flickoff;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,33 +11,34 @@ import android.support.v7.widget.RecyclerView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements MovieRecyclerViewAdapter.ItemClickListener {
 
     private MovieRecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
-    private ArrayList<Movie> movieArray = null;
-    public String MOVIE_URL = "https://api.themoviedb.org/3/discover/movie";
-    public String MOVIE_POSTER_URL = "https://image.tmdb.org/t/p/w185";
-    public String sortingTypeSelected = "popularity.desc";
-
+    private ArrayList<Movie> movieArray;
+    private String MOVIE_URL = "http://api.themoviedb.org/3/discover/movie";
+    private String MOVIE_POSTER_URL = "http://image.tmdb.org/t/p/w185";
+    private String sortingTypeSelected = "popularity.desc";
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContext = getApplicationContext();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_movies);
         int columns = 2;
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, columns));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, columns));
+
+
+        mAdapter = new MovieRecyclerViewAdapter(mContext, movieArray, this);
+        mRecyclerView.setAdapter(mAdapter);
 
         GetTheMoviesTask getTheMoviesTask = new GetTheMoviesTask();
-        mAdapter = new MovieRecyclerViewAdapter(this, movieArray, this);
         getTheMoviesTask.execute(sortingTypeSelected);
-
-        mRecyclerView.setAdapter(mAdapter);
     }
 
 
@@ -50,16 +52,17 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
         @Override
         protected String doInBackground(String... sortType) {
-            if (Connection.hasNetwork(getApplicationContext())) {
+            if(Connection.hasNetwork(mContext)) {
                 String sortingCriteria = sortType[0];
 
                 Uri builtUri = Uri.parse(MOVIE_URL).buildUpon()
                         .appendQueryParameter("api_key", BuildConfig.TMDB_API_TOKEN)
                         .appendQueryParameter("sort_by", sortingCriteria)
                         .build();
+
                 String jsonResponse;
                 try {
-                    jsonResponse = Connection.getResponseFromHttpUrl(new URL(builtUri.toString()));
+                    jsonResponse = Connection.getJSON(builtUri);
                     return jsonResponse;
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -71,15 +74,9 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         }
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
         protected void onPostExecute(String jsonResponse) {
-            if (jsonResponse != null) {
-                movieArray.clear();
-                try {
+            try {
+                if (jsonResponse != null) {
                     JSONObject jsonMoviesObject = new JSONObject(jsonResponse);
                     JSONArray jsonMoviesArray = jsonMoviesObject.getJSONArray("results");
                     for (int i = 0; i <= jsonMoviesArray.length(); i++) {
@@ -90,19 +87,15 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                         movie.setPlot(jsonMovie.getString("overview"));
                         movie.setDate(jsonMovie.getString("release_date"));
                         movie.setId(jsonMovie.getInt("id"));
-                        movie.setRating(jsonMovie.getInt("vote_count"));
+                        movie.setRating(jsonMovie.getString("vote_average"));
                         movieArray.add(movie);
                         mAdapter.notifyDataSetChanged();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }
 
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
         }
     }
 }
