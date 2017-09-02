@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">FlickOff</string>
     <string name="poster_iv_info">Poster Of The Movie</string>
+    <string name="popular">Popular</string>
+    <string name="highest_rated">Top Rated</string>
+    <string name="spinner">Sort By</string>
+    
+    <string-array name="sort_criteria">
+        <item>Most Popular</item>
+        <item>Highest Rated</item>
+    </string-array>
 </resources>

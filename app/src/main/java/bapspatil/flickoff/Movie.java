@@ -1,6 +1,8 @@
 package bapspatil.flickoff;
 
-public class Movie {
+import java.io.Serializable;
+
+public class Movie implements Serializable {
 
     private String posterPath, title, plot, date, rating;
     private int id;

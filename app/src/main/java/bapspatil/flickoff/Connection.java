@@ -3,7 +3,6 @@ package bapspatil.flickoff;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;

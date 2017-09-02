@@ -13,10 +13,13 @@
 
 
         <ImageView
-            android:id="@+id/poster_image_view"
             android:layout_width="200dp"
+            android:id="@+id/poster_image_view"
             android:layout_height="300dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:contentDescription="This is a poster for the movie."
+            android:scaleType="centerCrop"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@color/colorAccent" />
@@ -99,8 +102,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
-            android:paddingStart="16dp"
             android:paddingEnd="16dp"
+            android:paddingStart="16dp"
             android:textColor="#FFF"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
