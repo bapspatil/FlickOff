@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                 Uri builtUri = Uri.parse(MOVIE_URL).buildUpon()
                         .appendQueryParameter("api_key", BuildConfig.TMDB_API_TOKEN)
                         .appendQueryParameter("sort_by", sortingCriteria)
+                        .appendQueryParameter("year", "2017")
                         .build();
 
                 String jsonResponse;
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
             try {
                     JSONObject jsonMoviesObject = new JSONObject(jsonResponse);
                     JSONArray jsonMoviesArray = jsonMoviesObject.getJSONArray("results");
-                    for (int i = 0; i < jsonMoviesObject.getInt("total_results"); i++) {
+                    for (int i = 0; i < jsonMoviesArray.length(); i++) {
                         JSONObject jsonMovie = jsonMoviesArray.getJSONObject(i);
                         Movie movie = new Movie();
                         movie.setPosterPath(MOVIE_POSTER_URL + jsonMovie.getString("poster_path"));
