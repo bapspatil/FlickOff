@@ -13,8 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -26,11 +28,10 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
     private ArrayList<Movie> movieArray = new ArrayList<>();
-    private String MOVIE_URL = "http://api.themoviedb.org/3/discover/movie";
+    private String MOVIE_URL_POPULAR = "http://api.themoviedb.org/3/movie/popular";
+    private String MOVIE_URL_RATED = "http://api.themoviedb.org/3/movie/top_rated";
     private String MOVIE_POSTER_URL = "http://image.tmdb.org/t/p/w500";
-    private String sortingTypeSelected;
     private Context mContext;
-    private boolean popularOrNot;
     public GetTheMoviesTask getTheMoviesTask;
 
     @Override
@@ -50,28 +51,26 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         SlideInBottomAnimatorAdapter animatorAdapter = new SlideInBottomAnimatorAdapter(mAdapter, mRecyclerView);
         mRecyclerView.setAdapter(animatorAdapter);
 
-        popularOrNot = true;
         getTheMoviesTask = new GetTheMoviesTask();
-        getTheMoviesTask.execute(popularOrNot);
+        getTheMoviesTask.execute(MOVIE_URL_POPULAR);
 
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selected = parent.getItemAtPosition(position).toString();
+                String stringURL;
                 if (selected.equals("Most Popular")) {
-                    popularOrNot = true;
+                    stringURL = MOVIE_URL_POPULAR;
                 } else {
-                    popularOrNot = false;
+                    stringURL = MOVIE_URL_RATED;
                 }
                 getTheMoviesTask.cancel(true);
                 getTheMoviesTask = new GetTheMoviesTask();
-                getTheMoviesTask.execute(popularOrNot);
+                getTheMoviesTask.execute(stringURL);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
     }
@@ -86,38 +85,35 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         startActivity(startDetailsActivity);
     }
 
-    private class GetTheMoviesTask extends AsyncTask<Boolean, Void, String> {
+
+
+
+    private class GetTheMoviesTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
             mProgressBar.setVisibility(View.VISIBLE);
+            if (!Connection.hasNetwork(mContext)) {
+                cancel(true);
+                mProgressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(mContext,"No Internet Connection",Toast.LENGTH_SHORT).show();
+            }
         }
 
 
         @Override
-        protected String doInBackground(Boolean... params) {
-            if (params[0])
-                sortingTypeSelected = "popularity.desc";
-            else
-                sortingTypeSelected = "vote_average.desc";
-            if (Connection.hasNetwork(mContext)) {
+        protected String doInBackground(String... params) {
+            Uri builtUri = Uri.parse(params[0]).buildUpon()
+                    .appendQueryParameter("api_key", BuildConfig.TMDB_API_TOKEN)
+                    .appendQueryParameter("language", "en-US")
+                    .build();
 
-                Uri builtUri = Uri.parse(MOVIE_URL).buildUpon()
-                        .appendQueryParameter("api_key", BuildConfig.TMDB_API_TOKEN)
-                        .appendQueryParameter("sort_by", sortingTypeSelected)
-                        .appendQueryParameter("year", "2017")
-                        .build();
-
-                String jsonResponse;
-                try {
-                    jsonResponse = Connection.getResponseFromHttpUrl(new URL(builtUri.toString()));
-                    return jsonResponse;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            } else {
-                Toast.makeText(mContext, "No Internet connection!", Toast.LENGTH_SHORT).show();
+            String jsonResponse;
+            try {
+                jsonResponse = Connection.getResponseFromHttpUrl(new URL(builtUri.toString()));
+                return jsonResponse;
+            } catch (Exception e) {
+                e.printStackTrace();
                 return null;
             }
         }

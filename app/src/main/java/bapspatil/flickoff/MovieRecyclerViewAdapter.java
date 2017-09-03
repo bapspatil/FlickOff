@@ -15,7 +15,6 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     private ArrayList<Movie> mMoviesArrayList;
     private Context mContext;
     private ItemClickListener mClickListener;
-    private String MOVIE_POSTER_URL = "http://image.tmdb.org/t/p/w185";
 
     public interface ItemClickListener {
         void onItemClick(int position);

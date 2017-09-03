@@ -12,12 +12,12 @@ import java.util.Scanner;
 public class Connection {
 
     public static Boolean hasNetwork(Context context) {
-        Boolean isThereNetwork = false; // Initial Value
+        Boolean isConnected = false; // Initial Value
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected())
-            isThereNetwork = true;
-        return isThereNetwork;
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting())
+            isConnected = true;
+        return isConnected;
     }
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
