@@ -13,7 +13,7 @@
         app:cardCornerRadius="8dp"
         app:cardBackgroundColor="#212121"
         android:layout_width="wrap_content"
-        android:layout_height="284dp"
+        android:layout_height="wrap_content"
         tools:layout_editor_absoluteY="8dp"
         tools:layout_editor_absoluteX="8dp"
         app:layout_constraintBottom_toBottomOf="parent"

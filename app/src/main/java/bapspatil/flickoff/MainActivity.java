@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         @Override
         protected void onPostExecute(String jsonResponse) {
             movieArray.clear();
-            mProgressBar.setVisibility(View.INVISIBLE);
+                mProgressBar.setVisibility(View.INVISIBLE);
             try {
                 JSONObject jsonMoviesObject = new JSONObject(jsonResponse);
                 JSONArray jsonMoviesArray = jsonMoviesObject.getJSONArray("results");
