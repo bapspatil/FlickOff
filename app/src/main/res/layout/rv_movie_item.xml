@@ -9,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:layout_gravity="center_horizontal"
         app:cardBackgroundColor="#212121"
         app:cardCornerRadius="16dp"
         app:cardElevation="16dp">
@@ -18,7 +17,6 @@
             android:id="@+id/poster_image_view"
             android:layout_width="200dp"
             android:layout_height="300dp"
-            android:layout_gravity="center_horizontal"
             android:contentDescription="@string/poster_iv_info"
             android:scaleType="centerCrop" />
 
