@@ -24,7 +24,7 @@ public class DetailsActivity extends AppCompatActivity {
         mPlotTextView = (TextView) findViewById(R.id.plot_tv);
         mPosterImageView = (ImageView) findViewById(R.id.poster_image_view);
 
-        Movie movie = new Movie();
+        Movie movie;
         Intent receivedIntent = getIntent();
         if(receivedIntent.hasExtra("movie")) {
             movie = receivedIntent.getParcelableExtra("movie");

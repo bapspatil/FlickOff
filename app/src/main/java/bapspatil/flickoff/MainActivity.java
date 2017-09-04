@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
     }
 
-
     @Override
     public void onItemClick(int position) {
         Movie movie;
