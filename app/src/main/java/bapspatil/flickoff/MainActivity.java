@@ -2,19 +2,24 @@ package bapspatil.flickoff;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -43,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         Spinner mSpinner = (Spinner) findViewById(R.id.sort_spinner);
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_movies);
         int columns = 2;
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            columns = 4;
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, columns));
 
         mAdapter = new MovieRecyclerViewAdapter(mContext, movieArray, this);
@@ -74,12 +81,13 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, ImageView posterImageView) {
         Movie movie;
         movie = movieArray.get(position);
         Intent startDetailsActivity = new Intent(mContext, DetailsActivity.class);
         startDetailsActivity.putExtra("movie", movie);
-        startActivity(startDetailsActivity);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, posterImageView, "posterTransition");
+        startActivity(startDetailsActivity, options.toBundle());
     }
 
 
