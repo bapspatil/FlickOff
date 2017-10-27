@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = getApplicationContext();
-        Toast.makeText(mContext, "App developed by Bapusaheb Patil", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, "App developed by Bapusaheb Patil", Toast.LENGTH_LONG).show();
 
         mProgressBar = (ProgressBar) findViewById(R.id.loading_indicator);
         Spinner mSpinner = (Spinner) findViewById(R.id.sort_spinner);
@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                 Toast.makeText(mContext,"No Internet Connection",Toast.LENGTH_SHORT).show();
             }
         }
-
 
         @Override
         protected String doInBackground(String... params) {
