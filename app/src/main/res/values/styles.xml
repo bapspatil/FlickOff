@@ -8,6 +8,7 @@
         <item name="android:textColorPrimaryInverse">#000</item>
         <item name="android:textColorSecondaryInverse">#000</item>
         <item name="android:textColorTertiaryInverse">#000</item>
+        <item name="android:windowActivityTransitions">true</item>
     </style>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppBaseTheme">

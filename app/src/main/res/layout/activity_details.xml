@@ -18,6 +18,7 @@
             android:layout_height="300dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:transitionName="posterTransition"
             android:contentDescription="This is a poster for the movie."
             android:scaleType="centerCrop"
             app:layout_constraintLeft_toLeftOf="parent"

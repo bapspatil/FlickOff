@@ -17,7 +17,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     private ItemClickListener mClickListener;
 
     public interface ItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(int position, ImageView posterImageView);
     }
 
     public MovieRecyclerViewAdapter(Context context, ArrayList<Movie> movieArrayList, ItemClickListener itemClickListener) {
@@ -58,7 +58,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         @Override
         public void onClick(View v) {
             if (mClickListener != null)
-                mClickListener.onItemClick(getAdapterPosition());
+                mClickListener.onItemClick(getAdapterPosition(), mPosterImageView);
         }
     }
 }

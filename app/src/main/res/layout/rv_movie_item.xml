@@ -17,6 +17,7 @@
             android:id="@+id/poster_image_view"
             android:layout_width="200dp"
             android:layout_height="300dp"
+            android:transitionName="posterTransition"
             android:contentDescription="@string/poster_iv_info"
             android:scaleType="centerCrop" />
 
