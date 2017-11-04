@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import com.squareup.picasso.Picasso;
+
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 
@@ -35,8 +37,9 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         Movie theMovie = mMoviesArrayList.get(position);
-        Picasso.with(mContext)
+        Glide.with(mContext)
                 .load(theMovie.getPosterPath())
+                .centerCrop()
                 .into(holder.mPosterImageView);
     }
 
