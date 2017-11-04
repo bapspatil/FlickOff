@@ -23,7 +23,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import it.gmariotti.recyclerview.adapter.ScaleInAnimatorAdapter;
 
@@ -139,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                     movie.setPosterPath(MOVIE_POSTER_URL + jsonMovie.getString("poster_path"));
                     movie.setTitle(jsonMovie.getString("title"));
                     movie.setPlot(jsonMovie.getString("overview"));
-                    movie.setDate(jsonMovie.getString("release_date"));
+                    movie.setDate(convertIntoProperDateFormat(jsonMovie.getString("release_date")));
                     movie.setId(jsonMovie.getInt("id"));
                     movie.setRating(jsonMovie.getString("vote_average"));
                     movieArray.add(movie);
@@ -153,5 +157,18 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
             mRecyclerView.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    private String convertIntoProperDateFormat(String jsonDate) {
+        DateFormat sourceDateFormat = new SimpleDateFormat("YYYY-MM-dd");
+        Date date = null;
+        try {
+            date = sourceDateFormat.parse(jsonDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateFormat destDateFormat = new SimpleDateFormat("MMM dd, YYYY");
+        String dateStr = destDateFormat.format(date);
+        return dateStr;
     }
 }
