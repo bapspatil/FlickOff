@@ -6,7 +6,9 @@
     <string name="spinner">Sort By</string>
 
     <string-array name="sort_criteria">
-        <item>Most Popular</item>
-        <item>Highest Rated</item>
+        <item>Popular</item>
+        <item>Top Rated</item>
+        <item>Upcoming</item>
+        <item>Now Playing</item>
     </string-array>
 </resources>

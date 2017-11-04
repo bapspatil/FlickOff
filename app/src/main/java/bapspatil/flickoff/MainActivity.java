@@ -6,15 +6,17 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -23,7 +25,7 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.util.ArrayList;
 
-import it.gmariotti.recyclerview.adapter.SlideInBottomAnimatorAdapter;
+import it.gmariotti.recyclerview.adapter.ScaleInAnimatorAdapter;
 
 public class MainActivity extends AppCompatActivity implements MovieRecyclerViewAdapter.ItemClickListener {
 
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     private ArrayList<Movie> movieArray = new ArrayList<>();
     private String MOVIE_URL_POPULAR = "http://api.themoviedb.org/3/movie/popular";
     private String MOVIE_URL_RATED = "http://api.themoviedb.org/3/movie/top_rated";
+    private String MOVIE_URL_UPCOMING = "http://api.themoviedb.org/3/movie/upcoming";
+    private String MOVIE_URL_NOW = "http://api.themoviedb.org/3/movie/now_playing";
     private String MOVIE_POSTER_URL = "http://image.tmdb.org/t/p/w500";
     private Context mContext;
     public GetTheMoviesTask getTheMoviesTask;
@@ -42,40 +46,42 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = getApplicationContext();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setLogo(R.mipmap.ic_launcher);
+        setSupportActionBar(toolbar);
         Toast.makeText(mContext, "App developed by Bapusaheb Patil", Toast.LENGTH_LONG).show();
 
-        mProgressBar = (ProgressBar) findViewById(R.id.loading_indicator);
-        Spinner mSpinner = (Spinner) findViewById(R.id.sort_spinner);
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_movies);
+        mProgressBar = findViewById(R.id.loading_indicator);
+        mRecyclerView = findViewById(R.id.rv_movies);
         int columns = 2;
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             columns = 4;
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, columns));
 
         mAdapter = new MovieRecyclerViewAdapter(mContext, movieArray, this);
-        SlideInBottomAnimatorAdapter animatorAdapter = new SlideInBottomAnimatorAdapter(mAdapter, mRecyclerView);
+        ScaleInAnimatorAdapter<MovieRecyclerViewAdapter.MovieViewHolder> animatorAdapter = new ScaleInAnimatorAdapter<>(mAdapter, mRecyclerView);
         mRecyclerView.setAdapter(animatorAdapter);
 
         getTheMoviesTask = new GetTheMoviesTask();
         getTheMoviesTask.execute(MOVIE_URL_POPULAR);
 
-        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selected = parent.getItemAtPosition(position).toString();
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 String stringURL;
-                if (selected.equals("Most Popular")) {
-                    stringURL = MOVIE_URL_POPULAR;
-                } else {
-                    stringURL = MOVIE_URL_RATED;
+                switch (item.getItemId()) {
+                    case R.id.action_popular: stringURL = MOVIE_URL_POPULAR; break;
+                    case R.id.action_rated: stringURL = MOVIE_URL_RATED; break;
+                    case R.id.action_upcoming: stringURL = MOVIE_URL_UPCOMING; break;
+                    case R.id.action_now: stringURL = MOVIE_URL_NOW; break;
+                    default: stringURL = MOVIE_URL_POPULAR;
                 }
                 getTheMoviesTask.cancel(true);
                 getTheMoviesTask = new GetTheMoviesTask();
                 getTheMoviesTask.execute(stringURL);
+                return true;
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
     }
@@ -91,17 +97,16 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     }
 
 
-
-
     private class GetTheMoviesTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
             mProgressBar.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.INVISIBLE);
             if (!Connection.hasNetwork(mContext)) {
                 cancel(true);
                 mProgressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(mContext,"No Internet Connection",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -125,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         @Override
         protected void onPostExecute(String jsonResponse) {
             movieArray.clear();
-                mProgressBar.setVisibility(View.INVISIBLE);
             try {
                 JSONObject jsonMoviesObject = new JSONObject(jsonResponse);
                 JSONArray jsonMoviesArray = jsonMoviesObject.getJSONArray("results");
@@ -141,12 +145,12 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                     movieArray.add(movie);
                     mAdapter.notifyDataSetChanged();
                 }
-
             } catch (Exception e) {
                 Toast.makeText(mContext, "Error in the movie data fetched!", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
-
+            mProgressBar.setVisibility(View.INVISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
         }
 
     }

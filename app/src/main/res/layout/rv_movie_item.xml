@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_width="185dp"
+        android:layout_height="278dp"
+        app:cardUseCompatPadding="true"
         app:cardBackgroundColor="#212121"
         app:cardCornerRadius="4dp"
-        app:cardElevation="4dp">
+        app:cardElevation="12dp">
 
         <ImageView
             android:id="@+id/poster_image_view"
-            android:layout_width="200dp"
-            android:layout_height="300dp"
-            android:transitionName="posterTransition"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:contentDescription="@string/poster_iv_info"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:transitionName="posterTransition"/>
 
     </android.support.v7.widget.CardView>
 
-</LinearLayout>
+</RelativeLayout>

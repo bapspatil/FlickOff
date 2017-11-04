@@ -3,9 +3,11 @@ package bapspatil.flickoff;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
+
+import com.bumptech.glide.Glide;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -17,12 +19,15 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setLogo(R.mipmap.ic_launcher);
+        setSupportActionBar(toolbar);
 
-        mRatingTextView = (TextView) findViewById(R.id.rating_value_tv);
-        mDateTextView = (TextView) findViewById(R.id.date_value_tv);
-        mTitleTextView = (TextView) findViewById(R.id.title_tv);
-        mPlotTextView = (TextView) findViewById(R.id.plot_tv);
-        mPosterImageView = (ImageView) findViewById(R.id.poster_image_view);
+        mRatingTextView = findViewById(R.id.rating_value_tv);
+        mDateTextView = findViewById(R.id.date_value_tv);
+        mTitleTextView = findViewById(R.id.title_tv);
+        mPlotTextView = findViewById(R.id.plot_tv);
+        mPosterImageView = findViewById(R.id.poster_image_view);
 
         Movie movie;
         Intent receivedIntent = getIntent();
@@ -32,7 +37,7 @@ public class DetailsActivity extends AppCompatActivity {
             mDateTextView.setText(movie.getDate());
             mTitleTextView.setText(movie.getTitle());
             mPlotTextView.setText(movie.getPlot());
-            Picasso.with(getApplicationContext()).load(movie.getPosterPath()).into(mPosterImageView);
+            Glide.with(getApplicationContext()).load(movie.getPosterPath()).centerCrop().into(mPosterImageView);
         }
     }
 }

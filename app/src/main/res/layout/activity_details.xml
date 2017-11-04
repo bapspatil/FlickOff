@@ -1,15 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="bapspatil.flickoff.DetailsActivity">
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="bapspatil.flickoff.DetailsActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAccent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/app_name"
+                    android:textColor="@color/colorPrimaryDark"/>
+            </FrameLayout>
+        </android.support.v7.widget.Toolbar>
 
 
         <ImageView
@@ -18,12 +42,12 @@
             android:layout_height="300dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:transitionName="posterTransition"
             android:contentDescription="This is a poster for the movie."
             android:scaleType="centerCrop"
+            android:transitionName="posterTransition"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@color/colorAccent" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            tools:srcCompat="@color/colorAccent"/>
 
         <TextView
             android:id="@+id/rating_label_tv"
@@ -38,7 +62,7 @@
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintLeft_toRightOf="@+id/poster_image_view"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
         <TextView
             android:id="@+id/rating_value_tv"
@@ -55,7 +79,7 @@
             app:layout_constraintLeft_toRightOf="@+id/poster_image_view"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rating_label_tv"
-            tools:text="10.0" />
+            tools:text="10.0"/>
 
         <TextView
             android:id="@+id/date_label_tv"
@@ -70,7 +94,7 @@
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintLeft_toRightOf="@+id/poster_image_view"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rating_value_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/rating_value_tv"/>
 
         <TextView
             android:id="@+id/date_value_tv"
@@ -85,7 +109,7 @@
             app:layout_constraintLeft_toRightOf="@+id/poster_image_view"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/date_label_tv"
-            tools:text="12/13/1989" />
+            tools:text="12/13/1989"/>
 
         <TextView
             android:id="@+id/title_tv"
@@ -96,21 +120,21 @@
             android:textSize="32sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/poster_image_view"
-            tools:text="A Very Long Title Of The Movie" />
+            tools:text="A Very Long Title Of The Movie"/>
 
         <TextView
             android:id="@+id/plot_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:lineSpacingExtra="4dp"
             android:paddingBottom="16dp"
             android:paddingEnd="24dp"
-            android:lineSpacingExtra="4dp"
             android:paddingStart="24dp"
             android:textColor="#212121"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_tv"
-            tools:text="This is gonna be a plot synopsis of the movie. This data will be fetched by the TMDB API. And this will contain info of the movie script." />
+            tools:text="This is gonna be a plot synopsis of the movie. This data will be fetched by the TMDB API. And this will contain info of the movie script."/>
 
     </android.support.constraint.ConstraintLayout>
 
