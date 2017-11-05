@@ -10,3 +10,4 @@ gradle.properties
 .externalNativeBuild
 app/libs/
 app/release/
+/gradle.properties
