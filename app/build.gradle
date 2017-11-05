@@ -5,9 +5,9 @@ android {
     buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "bapspatil.flickoff"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 26
-        versionCode 4
+        versionCode 5
         versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -30,6 +30,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-ads:11.4.2'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
