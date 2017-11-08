@@ -39,6 +39,9 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         Movie theMovie = mMoviesArrayList.get(position);
         Glide.with(mContext)
                 .load(theMovie.getPosterPath())
+                .placeholder(R.drawable.tmdb_placeholder)
+                .error(R.drawable.tmdb_placeholder)
+                .fallback(R.drawable.tmdb_placeholder)
                 .centerCrop()
                 .into(holder.mPosterImageView);
     }

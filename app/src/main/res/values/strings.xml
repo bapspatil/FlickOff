@@ -4,6 +4,7 @@
     <string name="popular">Popular</string>
     <string name="highest_rated">Top Rated</string>
     <string name="spinner">Sort By</string>
+    <string name="search_title">Search</string>
 
     <string-array name="sort_criteria">
         <item>Popular</item>

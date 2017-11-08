@@ -13,11 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -44,15 +47,18 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     private String MOVIE_POSTER_URL = "http://image.tmdb.org/t/p/w500";
     private Context mContext;
     public GetTheMoviesTask getTheMoviesTask;
+    private Toolbar toolbar;
+    private MaterialSearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = getApplicationContext();
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setLogo(R.mipmap.ic_launcher);
         setSupportActionBar(toolbar);
+
         Toast.makeText(mContext, "App developed by Bapusaheb Patil", Toast.LENGTH_LONG).show();
 
         mProgressBar = findViewById(R.id.loading_indicator);
@@ -69,22 +75,58 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         getTheMoviesTask = new GetTheMoviesTask();
         getTheMoviesTask.execute(MOVIE_URL_POPULAR);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 String stringURL;
                 switch (item.getItemId()) {
-                    case R.id.action_popular: stringURL = MOVIE_URL_POPULAR; break;
-                    case R.id.action_rated: stringURL = MOVIE_URL_RATED; break;
-                    case R.id.action_upcoming: stringURL = MOVIE_URL_UPCOMING; break;
-                    case R.id.action_now: stringURL = MOVIE_URL_NOW; break;
-                    default: stringURL = MOVIE_URL_POPULAR;
+                    case R.id.action_popular:
+                        stringURL = MOVIE_URL_POPULAR;
+                        break;
+                    case R.id.action_rated:
+                        stringURL = MOVIE_URL_RATED;
+                        break;
+                    case R.id.action_upcoming:
+                        stringURL = MOVIE_URL_UPCOMING;
+                        break;
+                    case R.id.action_now:
+                        stringURL = MOVIE_URL_NOW;
+                        break;
+                    default:
+                        stringURL = MOVIE_URL_POPULAR;
                 }
                 getTheMoviesTask.cancel(true);
                 getTheMoviesTask = new GetTheMoviesTask();
                 getTheMoviesTask.execute(stringURL);
                 return true;
+            }
+        });
+        searchView = findViewById(R.id.search_view);
+        searchView.setCursorDrawable(R.drawable.cursor_search);
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                SearchTask searchTask = new SearchTask();
+                searchTask.execute(query);
+                searchView.closeSearch();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                bottomNavigationView.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                bottomNavigationView.setVisibility(View.VISIBLE);
             }
         });
 
@@ -159,6 +201,71 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
 
     }
 
+    private class SearchTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            mProgressBar.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.INVISIBLE);
+            if (!Connection.hasNetwork(mContext)) {
+                cancel(true);
+                mProgressBar.setVisibility(View.INVISIBLE);
+                mRecyclerView.setVisibility(View.INVISIBLE);
+                Toast.makeText(mContext, "No Internet Connection", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            Uri builtUri = Uri.parse("https://api.themoviedb.org/3/search/movie").buildUpon()
+                    .appendQueryParameter("api_key", BuildConfig.TMDB_API_TOKEN)
+                    .appendQueryParameter("language", "en-US")
+                    .appendQueryParameter("query", strings[0])
+                    .build();
+            String jsonResponse;
+            try {
+                jsonResponse = Connection.getResponseFromHttpUrl(new URL(builtUri.toString()));
+                return jsonResponse;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String jsonResponse) {
+            movieArray.clear();
+            try {
+                JSONObject jsonMoviesObject = new JSONObject(jsonResponse);
+                JSONArray jsonMoviesArray = jsonMoviesObject.getJSONArray("results");
+                if(jsonMoviesArray.length() == 0) {
+                    Toast.makeText(mContext, "No movies found!", Toast.LENGTH_LONG).show();
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    return;
+                }
+                else {
+                    for (int i = 0; i < jsonMoviesArray.length(); i++) {
+                        JSONObject jsonMovie = jsonMoviesArray.getJSONObject(i);
+                        Movie movie = new Movie();
+                        movie.setPosterPath(MOVIE_POSTER_URL + jsonMovie.getString("poster_path"));
+                        movie.setTitle(jsonMovie.getString("title"));
+                        movie.setPlot(jsonMovie.getString("overview"));
+                        movie.setDate(convertIntoProperDateFormat(jsonMovie.getString("release_date")));
+                        movie.setId(jsonMovie.getInt("id"));
+                        movie.setRating(jsonMovie.getString("vote_average"));
+                        movieArray.add(movie);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }
+            } catch (Exception e) {
+                Toast.makeText(mContext, "Error in the movie data fetched!", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+            mProgressBar.setVisibility(View.INVISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
+    }
+
     private String convertIntoProperDateFormat(String jsonDate) {
         DateFormat sourceDateFormat = new SimpleDateFormat("YYYY-MM-dd");
         Date date = null;
@@ -167,8 +274,26 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        DateFormat destDateFormat = new SimpleDateFormat("MMM dd, YYYY");
+        DateFormat destDateFormat = new SimpleDateFormat("MMM dd\nYYYY");
         String dateStr = destDateFormat.format(date);
         return dateStr;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (searchView.isSearchOpen())
+            searchView.closeSearch();
+        else
+            super.onBackPressed();
     }
 }
