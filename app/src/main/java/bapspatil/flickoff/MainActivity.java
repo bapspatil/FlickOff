@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +60,10 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         toolbar = findViewById(R.id.toolbar);
         toolbar.setLogo(R.mipmap.ic_launcher);
         setSupportActionBar(toolbar);
+
+        if(Build.VERSION.SDK_INT >= 21) {
+            getWindow().setExitTransition(new Explode());
+        }
 
         Toast.makeText(mContext, "App developed by Bapusaheb Patil", Toast.LENGTH_LONG).show();
 
