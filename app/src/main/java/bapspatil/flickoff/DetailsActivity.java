@@ -10,8 +10,6 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 public class DetailsActivity extends AppCompatActivity {
 
 
@@ -47,7 +45,7 @@ public class DetailsActivity extends AppCompatActivity {
             mDateTextView.setText(movie.getDate());
             mTitleTextView.setText(movie.getTitle());
             mPlotTextView.setText(movie.getPlot());
-            Glide.with(getApplicationContext()).load(movie.getPosterPath()).centerCrop().into(mPosterImageView);
+            GlideApp.with(getApplicationContext()).load(movie.getPosterPath()).centerCrop().into(mPosterImageView);
         }
     }
 }

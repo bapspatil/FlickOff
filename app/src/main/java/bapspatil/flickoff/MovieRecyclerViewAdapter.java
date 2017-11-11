@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
 
 
@@ -37,7 +35,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         Movie theMovie = mMoviesArrayList.get(position);
-        Glide.with(mContext)
+        GlideApp.with(mContext)
                 .load(theMovie.getPosterPath())
                 .placeholder(R.drawable.tmdb_placeholder)
                 .error(R.drawable.tmdb_placeholder)
@@ -57,7 +55,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
         MovieViewHolder(View itemView) {
             super(itemView);
-            mPosterImageView = (ImageView) itemView.findViewById(R.id.poster_image_view);
+            mPosterImageView = itemView.findViewById(R.id.poster_image_view);
             itemView.setOnClickListener(this);
         }
 
