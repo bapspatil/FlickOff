@@ -3,10 +3,16 @@ package bapspatil.flickoff.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Movie implements Parcelable {
 
-    private String posterPath, title, plot, date, rating;
-    private int id;
+    @SerializedName("poster_path") private String posterPath;
+    @SerializedName("title") private String title;
+    @SerializedName("overview") private String plot;
+    @SerializedName("release_date") String date;
+    @SerializedName("vote_average") String rating;
+    @SerializedName("id") private int id;
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator(){
         @Override

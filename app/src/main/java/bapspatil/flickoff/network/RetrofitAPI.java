@@ -1,15 +1,10 @@
 package bapspatil.flickoff.network;
 
-import org.json.JSONArray;
-
-import java.util.ArrayList;
-
-import bapspatil.flickoff.model.Movie;
+import bapspatil.flickoff.model.TMDBResponse;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -18,23 +13,26 @@ import retrofit2.http.Query;
 
 public interface RetrofitAPI {
 
+    public static final String POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500";
+    public static final String BASE_URL = "https://api.themoviedb.org/3/";
+
     @GET("movie/popular")
-    Call<ArrayList<Movie>> fetchPopularMovies(@Path("results") JSONArray RESULTS_ARRAY, @Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE);
+    Call<TMDBResponse> fetchPopularMovies(@Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE);
 
     @GET("movie/top_rated")
-    Call<ArrayList<Movie>> fetchTopRatedMovies(@Path("results") JSONArray RESULTS_ARRAY, @Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE);
+    Call<TMDBResponse> fetchTopRatedMovies(@Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE);
 
     @GET("movie/upcoming")
-    Call<ArrayList<Movie>> fetchUpcomingMovies(@Path("results") JSONArray RESULTS_ARRAY, @Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE);
+    Call<TMDBResponse> fetchUpcomingMovies(@Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE);
 
     @GET("movie/now_playing")
-    Call<ArrayList<Movie>> fetchNowPlayingMovies(@Path("results") JSONArray RESULTS_ARRAY, @Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE);
+    Call<TMDBResponse> fetchNowPlayingMovies(@Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE);
 
     @GET("search/movie")
-    Call<ArrayList<Movie>> searchMovies(@Path("results") JSONArray RESULTS_ARRAY, @Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE);
+    Call<TMDBResponse> searchMovies(@Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE, @Query("query") String QUERY);
 
     public static Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 

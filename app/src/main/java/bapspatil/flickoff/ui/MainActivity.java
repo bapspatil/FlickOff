@@ -3,8 +3,6 @@ package bapspatil.flickoff.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,10 +22,6 @@ import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,25 +29,24 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import bapspatil.flickoff.BuildConfig;
-import bapspatil.flickoff.model.Movie;
-import bapspatil.flickoff.adapters.MovieRecyclerViewAdapter;
 import bapspatil.flickoff.R;
-import bapspatil.flickoff.network.Connection;
+import bapspatil.flickoff.adapters.MovieRecyclerViewAdapter;
+import bapspatil.flickoff.model.Movie;
+import bapspatil.flickoff.model.TMDBResponse;
+import bapspatil.flickoff.network.RetrofitAPI;
 import it.gmariotti.recyclerview.adapter.ScaleInAnimatorAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements MovieRecyclerViewAdapter.ItemClickListener {
+    private static final int SEARCH_TASK = 0, POPULAR_TASK = 1, TOP_RATED_TASK = 2, UPCOMING_TASK = 3, NOW_PLAYING_TASK = 4;
 
     private MovieRecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
     private ArrayList<Movie> movieArray = new ArrayList<>();
-    private String MOVIE_URL_POPULAR = "http://api.themoviedb.org/3/movie/popular";
-    private String MOVIE_URL_RATED = "http://api.themoviedb.org/3/movie/top_rated";
-    private String MOVIE_URL_UPCOMING = "http://api.themoviedb.org/3/movie/upcoming";
-    private String MOVIE_URL_NOW = "http://api.themoviedb.org/3/movie/now_playing";
-    private String MOVIE_POSTER_URL = "http://image.tmdb.org/t/p/w500";
     private Context mContext;
-    public GetTheMoviesTask getTheMoviesTask;
     private Toolbar toolbar;
     private MaterialSearchView searchView;
 
@@ -83,33 +76,28 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         ScaleInAnimatorAdapter<MovieRecyclerViewAdapter.MovieViewHolder> animatorAdapter = new ScaleInAnimatorAdapter<>(mAdapter, mRecyclerView);
         mRecyclerView.setAdapter(animatorAdapter);
 
-        getTheMoviesTask = new GetTheMoviesTask();
-        getTheMoviesTask.execute(MOVIE_URL_POPULAR);
+        fetchMovies(POPULAR_TASK, null);
 
         final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                String stringURL;
                 switch (item.getItemId()) {
                     case R.id.action_popular:
-                        stringURL = MOVIE_URL_POPULAR;
+                        fetchMovies(POPULAR_TASK, null);
                         break;
                     case R.id.action_rated:
-                        stringURL = MOVIE_URL_RATED;
+                        fetchMovies(TOP_RATED_TASK, null);
                         break;
                     case R.id.action_upcoming:
-                        stringURL = MOVIE_URL_UPCOMING;
+                        fetchMovies(UPCOMING_TASK, null);
                         break;
                     case R.id.action_now:
-                        stringURL = MOVIE_URL_NOW;
+                        fetchMovies(NOW_PLAYING_TASK, null);
                         break;
                     default:
-                        stringURL = MOVIE_URL_POPULAR;
+                        fetchMovies(POPULAR_TASK, null);
                 }
-                getTheMoviesTask.cancel(true);
-                getTheMoviesTask = new GetTheMoviesTask();
-                getTheMoviesTask.execute(stringURL);
                 return true;
             }
         });
@@ -118,8 +106,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                SearchTask searchTask = new SearchTask();
-                searchTask.execute(query);
+                fetchMovies(SEARCH_TASK, query);
                 searchView.closeSearch();
                 return true;
             }
@@ -153,128 +140,48 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         startActivity(startDetailsActivity, options.toBundle());
     }
 
-
-    private class GetTheMoviesTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-            mProgressBar.setVisibility(View.VISIBLE);
-            mRecyclerView.setVisibility(View.INVISIBLE);
-            if (!Connection.hasNetwork(mContext)) {
-                cancel(true);
+    private void fetchMovies(int taskId, String taskQuery) {
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
+        RetrofitAPI retrofitAPI = RetrofitAPI.retrofit.create(RetrofitAPI.class);
+        Call<TMDBResponse> call;
+        switch (taskId) {
+            case SEARCH_TASK:
+                call = retrofitAPI.searchMovies(BuildConfig.TMDB_API_TOKEN, "en-US", 1, taskQuery);
+                break;
+            case POPULAR_TASK:
+                call = retrofitAPI.fetchPopularMovies(BuildConfig.TMDB_API_TOKEN, "en-US", 1);
+                break;
+            case TOP_RATED_TASK:
+                call = retrofitAPI.fetchTopRatedMovies(BuildConfig.TMDB_API_TOKEN, "en-US", 1);
+                break;
+            case UPCOMING_TASK:
+                call = retrofitAPI.fetchUpcomingMovies(BuildConfig.TMDB_API_TOKEN, "en-US", 1);
+                break;
+            case NOW_PLAYING_TASK:
+                call = retrofitAPI.fetchNowPlayingMovies(BuildConfig.TMDB_API_TOKEN, "en-US", 1);
+                break;
+            default:
+                call = retrofitAPI.fetchPopularMovies(BuildConfig.TMDB_API_TOKEN, "en-US", 1);
+        }
+        call.enqueue(new Callback<TMDBResponse>() {
+            @Override
+            public void onResponse(Call<TMDBResponse> call, Response<TMDBResponse> response) {
+                TMDBResponse tmdbResponse = response.body();
+                movieArray.clear();
+                movieArray.addAll(tmdbResponse.getResults());
+                mAdapter.notifyDataSetChanged();
+                mRecyclerView.setVisibility(View.VISIBLE);
                 mProgressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(mContext, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
-        }
 
-        @Override
-        protected String doInBackground(String... params) {
-            Uri builtUri = Uri.parse(params[0]).buildUpon()
-                    .appendQueryParameter("api_key", BuildConfig.TMDB_API_TOKEN)
-                    .appendQueryParameter("language", "en-US")
-                    .build();
-
-            String jsonResponse;
-            try {
-                jsonResponse = Connection.getResponseFromHttpUrl(new URL(builtUri.toString()));
-                return jsonResponse;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String jsonResponse) {
-            movieArray.clear();
-            try {
-                JSONObject jsonMoviesObject = new JSONObject(jsonResponse);
-                JSONArray jsonMoviesArray = jsonMoviesObject.getJSONArray("results");
-                for (int i = 0; i < jsonMoviesArray.length(); i++) {
-                    JSONObject jsonMovie = jsonMoviesArray.getJSONObject(i);
-                    Movie movie = new Movie();
-                    movie.setPosterPath(MOVIE_POSTER_URL + jsonMovie.getString("poster_path"));
-                    movie.setTitle(jsonMovie.getString("title"));
-                    movie.setPlot(jsonMovie.getString("overview"));
-                    movie.setDate(convertIntoProperDateFormat(jsonMovie.getString("release_date")));
-                    movie.setId(jsonMovie.getInt("id"));
-                    movie.setRating(jsonMovie.getString("vote_average"));
-                    movieArray.add(movie);
-                    mAdapter.notifyDataSetChanged();
-                }
-            } catch (Exception e) {
-                Toast.makeText(mContext, "Error in the movie data fetched!", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
-            mProgressBar.setVisibility(View.INVISIBLE);
-            mRecyclerView.setVisibility(View.VISIBLE);
-        }
-
-    }
-
-    private class SearchTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected void onPreExecute() {
-            mProgressBar.setVisibility(View.VISIBLE);
-            mRecyclerView.setVisibility(View.INVISIBLE);
-            if (!Connection.hasNetwork(mContext)) {
-                cancel(true);
-                mProgressBar.setVisibility(View.INVISIBLE);
+            @Override
+            public void onFailure(Call<TMDBResponse> call, Throwable t) {
+                Toast.makeText(mContext, "Error!", Toast.LENGTH_LONG).show();
                 mRecyclerView.setVisibility(View.INVISIBLE);
-                Toast.makeText(mContext, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                mProgressBar.setVisibility(View.INVISIBLE);
             }
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            Uri builtUri = Uri.parse("https://api.themoviedb.org/3/search/movie").buildUpon()
-                    .appendQueryParameter("api_key", BuildConfig.TMDB_API_TOKEN)
-                    .appendQueryParameter("language", "en-US")
-                    .appendQueryParameter("query", strings[0])
-                    .build();
-            String jsonResponse;
-            try {
-                jsonResponse = Connection.getResponseFromHttpUrl(new URL(builtUri.toString()));
-                return jsonResponse;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String jsonResponse) {
-            movieArray.clear();
-            try {
-                JSONObject jsonMoviesObject = new JSONObject(jsonResponse);
-                JSONArray jsonMoviesArray = jsonMoviesObject.getJSONArray("results");
-                if(jsonMoviesArray.length() == 0) {
-                    Toast.makeText(mContext, "No movies found!", Toast.LENGTH_LONG).show();
-                    mProgressBar.setVisibility(View.INVISIBLE);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                    return;
-                }
-                else {
-                    for (int i = 0; i < jsonMoviesArray.length(); i++) {
-                        JSONObject jsonMovie = jsonMoviesArray.getJSONObject(i);
-                        Movie movie = new Movie();
-                        movie.setPosterPath(MOVIE_POSTER_URL + jsonMovie.getString("poster_path"));
-                        movie.setTitle(jsonMovie.getString("title"));
-                        movie.setPlot(jsonMovie.getString("overview"));
-                        movie.setDate(convertIntoProperDateFormat(jsonMovie.getString("release_date")));
-                        movie.setId(jsonMovie.getInt("id"));
-                        movie.setRating(jsonMovie.getString("vote_average"));
-                        movieArray.add(movie);
-                        mAdapter.notifyDataSetChanged();
-                    }
-                }
-            } catch (Exception e) {
-                Toast.makeText(mContext, "Error in the movie data fetched!", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
-            mProgressBar.setVisibility(View.INVISIBLE);
-            mRecyclerView.setVisibility(View.VISIBLE);
-        }
+        });
     }
 
     private String convertIntoProperDateFormat(String jsonDate) {

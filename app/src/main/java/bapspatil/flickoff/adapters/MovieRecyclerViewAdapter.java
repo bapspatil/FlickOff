@@ -7,10 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+
 import java.util.ArrayList;
 
 import bapspatil.flickoff.R;
 import bapspatil.flickoff.model.Movie;
+import bapspatil.flickoff.network.RetrofitAPI;
 import bapspatil.flickoff.utils.GlideApp;
 
 
@@ -40,11 +43,12 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         Movie theMovie = mMoviesArrayList.get(position);
         GlideApp.with(mContext)
-                .load(theMovie.getPosterPath())
+                .load(RetrofitAPI.POSTER_BASE_URL + theMovie.getPosterPath())
                 .placeholder(R.drawable.tmdb_placeholder)
                 .error(R.drawable.tmdb_placeholder)
                 .fallback(R.drawable.tmdb_placeholder)
                 .centerCrop()
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(holder.mPosterImageView);
     }
 

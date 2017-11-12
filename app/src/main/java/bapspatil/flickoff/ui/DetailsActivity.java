@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import bapspatil.flickoff.network.RetrofitAPI;
 import bapspatil.flickoff.utils.GlideApp;
 import bapspatil.flickoff.model.Movie;
 import bapspatil.flickoff.R;
@@ -49,7 +50,10 @@ public class DetailsActivity extends AppCompatActivity {
             mDateTextView.setText(movie.getDate());
             mTitleTextView.setText(movie.getTitle());
             mPlotTextView.setText(movie.getPlot());
-            GlideApp.with(getApplicationContext()).load(movie.getPosterPath()).centerCrop().into(mPosterImageView);
+            GlideApp.with(getApplicationContext())
+                    .load(RetrofitAPI.POSTER_BASE_URL + movie.getPosterPath())
+                    .centerCrop()
+                    .into(mPosterImageView);
         }
     }
 }
