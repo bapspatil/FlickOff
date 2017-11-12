@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 
 public interface RetrofitAPI {
 
-    public static final String POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500";
+    public static final String POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342";
     public static final String BASE_URL = "https://api.themoviedb.org/3/";
 
     @GET("movie/{type}")
