@@ -22,11 +22,7 @@ import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import bapspatil.flickoff.BuildConfig;
 import bapspatil.flickoff.R;
@@ -182,19 +178,6 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                 mProgressBar.setVisibility(View.INVISIBLE);
             }
         });
-    }
-
-    private String convertIntoProperDateFormat(String jsonDate) {
-        DateFormat sourceDateFormat = new SimpleDateFormat("YYYY-MM-dd");
-        Date date = null;
-        try {
-            date = sourceDateFormat.parse(jsonDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        DateFormat destDateFormat = new SimpleDateFormat("MMM dd\nYYYY");
-        String dateStr = destDateFormat.format(date);
-        return dateStr;
     }
 
     @Override

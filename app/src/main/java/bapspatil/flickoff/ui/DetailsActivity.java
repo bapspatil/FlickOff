@@ -10,6 +10,11 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import bapspatil.flickoff.network.RetrofitAPI;
 import bapspatil.flickoff.utils.GlideApp;
 import bapspatil.flickoff.model.Movie;
@@ -47,7 +52,7 @@ public class DetailsActivity extends AppCompatActivity {
         if(receivedIntent.hasExtra("movie")) {
             movie = receivedIntent.getParcelableExtra("movie");
             mRatingTextView.setText(movie.getRating());
-            mDateTextView.setText(movie.getDate());
+            mDateTextView.setText(prettifyDate(movie.getDate()));
             mTitleTextView.setText(movie.getTitle());
             mPlotTextView.setText(movie.getPlot());
             GlideApp.with(getApplicationContext())
@@ -55,5 +60,18 @@ public class DetailsActivity extends AppCompatActivity {
                     .centerCrop()
                     .into(mPosterImageView);
         }
+    }
+
+    private String prettifyDate(String jsonDate) {
+        DateFormat sourceDateFormat = new SimpleDateFormat("YYYY-MM-dd");
+        Date date = null;
+        try {
+            date = sourceDateFormat.parse(jsonDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateFormat destDateFormat = new SimpleDateFormat("MMM dd\nYYYY");
+        String dateStr = destDateFormat.format(date);
+        return dateStr;
     }
 }
