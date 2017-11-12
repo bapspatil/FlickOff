@@ -146,19 +146,19 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                 call = retrofitAPI.searchMovies(BuildConfig.TMDB_API_TOKEN, "en-US", 1, taskQuery);
                 break;
             case POPULAR_TASK:
-                call = retrofitAPI.fetchPopularMovies(BuildConfig.TMDB_API_TOKEN, "en-US", 1);
+                call = retrofitAPI.getMovies("popular", BuildConfig.TMDB_API_TOKEN, "en-US", 1);
                 break;
             case TOP_RATED_TASK:
-                call = retrofitAPI.fetchTopRatedMovies(BuildConfig.TMDB_API_TOKEN, "en-US", 1);
+                call = retrofitAPI.getMovies("top_rated", BuildConfig.TMDB_API_TOKEN, "en-US", 1);
                 break;
             case UPCOMING_TASK:
-                call = retrofitAPI.fetchUpcomingMovies(BuildConfig.TMDB_API_TOKEN, "en-US", 1);
+                call = retrofitAPI.getMovies("upcoming", BuildConfig.TMDB_API_TOKEN, "en-US", 1);
                 break;
             case NOW_PLAYING_TASK:
-                call = retrofitAPI.fetchNowPlayingMovies(BuildConfig.TMDB_API_TOKEN, "en-US", 1);
+                call = retrofitAPI.getMovies("now_playing", BuildConfig.TMDB_API_TOKEN, "en-US", 1);
                 break;
             default:
-                call = retrofitAPI.fetchPopularMovies(BuildConfig.TMDB_API_TOKEN, "en-US", 1);
+                call = retrofitAPI.getMovies("popular", BuildConfig.TMDB_API_TOKEN, "en-US", 1);
         }
         call.enqueue(new Callback<TMDBResponse>() {
             @Override
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
             public void onFailure(Call<TMDBResponse> call, Throwable t) {
                 Toast.makeText(mContext, "Error!", Toast.LENGTH_LONG).show();
                 mRecyclerView.setVisibility(View.INVISIBLE);
-                mProgressBar.setVisibility(View.INVISIBLE);
+                mProgressBar.setVisibility(View.GONE);
             }
         });
     }

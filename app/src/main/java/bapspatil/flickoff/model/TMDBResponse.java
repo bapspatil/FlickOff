@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by bapspatil
  */
 
-public class TMDBResponse implements Parcelable{
+public class TMDBResponse implements Parcelable {
     @SerializedName("page") private int page;
     @SerializedName("results") private ArrayList<Movie> results;
     @SerializedName("total_results") private int totalResults;
