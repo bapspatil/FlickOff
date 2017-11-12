@@ -66,12 +66,10 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         int columns = 2;
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             columns = 4;
-        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, columns));
+        final GridLayoutManager layoutManager = new GridLayoutManager(mContext, columns);
+        mRecyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new MovieRecyclerViewAdapter(mContext, movieArray, this);
-        ScaleInAnimatorAdapter<MovieRecyclerViewAdapter.MovieViewHolder> animatorAdapter = new ScaleInAnimatorAdapter<>(mAdapter, mRecyclerView);
-        mRecyclerView.setAdapter(animatorAdapter);
-
         fetchMovies(POPULAR_TASK, null);
 
         final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -91,8 +89,6 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                     case R.id.action_now:
                         fetchMovies(NOW_PLAYING_TASK, null);
                         break;
-                    default:
-                        fetchMovies(POPULAR_TASK, null);
                 }
                 return true;
             }
@@ -101,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         searchView.setCursorDrawable(R.drawable.cursor_search);
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(final String query) {
                 fetchMovies(SEARCH_TASK, query);
                 searchView.closeSearch();
                 return true;
@@ -123,6 +119,8 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                 bottomNavigationView.setVisibility(View.VISIBLE);
             }
         });
+        ScaleInAnimatorAdapter<MovieRecyclerViewAdapter.MovieViewHolder> animatorAdapter = new ScaleInAnimatorAdapter<>(mAdapter, mRecyclerView);
+        mRecyclerView.setAdapter(animatorAdapter);
 
     }
 
