@@ -1,4 +1,4 @@
-package bapspatil.flickoff;
+package bapspatil.flickoff.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -20,7 +20,7 @@ public class Movie implements Parcelable {
         }
     };
 
-    Movie(Parcel in) {
+    public Movie(Parcel in) {
         this.posterPath = in.readString();
         this.title = in.readString();
         this.plot = in.readString();
@@ -29,7 +29,7 @@ public class Movie implements Parcelable {
         this.id = in.readInt();
     }
 
-    Movie() {
+    public Movie() {
 
     }
 

@@ -1,4 +1,4 @@
-package bapspatil.flickoff;
+package bapspatil.flickoff.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+
+import bapspatil.flickoff.R;
+import bapspatil.flickoff.model.Movie;
+import bapspatil.flickoff.utils.GlideApp;
 
 
 public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.MovieViewHolder> {

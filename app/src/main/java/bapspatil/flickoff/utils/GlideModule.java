@@ -1,4 +1,4 @@
-package bapspatil.flickoff;
+package bapspatil.flickoff.utils;
 
 import com.bumptech.glide.module.AppGlideModule;
 

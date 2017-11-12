@@ -1,4 +1,4 @@
-package bapspatil.flickoff;
+package bapspatil.flickoff.ui;
 
 import android.content.Intent;
 import android.os.Build;
@@ -9,6 +9,10 @@ import android.transition.Slide;
 import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import bapspatil.flickoff.utils.GlideApp;
+import bapspatil.flickoff.model.Movie;
+import bapspatil.flickoff.R;
 
 public class DetailsActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package bapspatil.flickoff;
+package bapspatil.flickoff.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +34,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import bapspatil.flickoff.BuildConfig;
+import bapspatil.flickoff.model.Movie;
+import bapspatil.flickoff.adapters.MovieRecyclerViewAdapter;
+import bapspatil.flickoff.R;
+import bapspatil.flickoff.network.Connection;
 import it.gmariotti.recyclerview.adapter.ScaleInAnimatorAdapter;
 
 public class MainActivity extends AppCompatActivity implements MovieRecyclerViewAdapter.ItemClickListener {

@@ -1,4 +1,4 @@
-package bapspatil.flickoff;
+package bapspatil.flickoff.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
