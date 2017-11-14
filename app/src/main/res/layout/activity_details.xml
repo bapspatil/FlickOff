@@ -136,6 +136,26 @@
             app:layout_constraintTop_toBottomOf="@+id/title_tv"
             tools:text="This is gonna be a plot synopsis of the movie. This data will be fetched by the TMDB API. And this will contain info of the movie script."/>
 
+        <TextView
+            android:id="@+id/cast_label_tv"
+            style="@style/TextAppearance.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="@string/cast"
+            android:textColor="#000"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/plot_tv"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cast_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cast_label_tv"/>
+
     </android.support.constraint.ConstraintLayout>
 
 </ScrollView>

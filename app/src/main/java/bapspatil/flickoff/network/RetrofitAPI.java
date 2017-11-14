@@ -1,5 +1,6 @@
 package bapspatil.flickoff.network;
 
+import bapspatil.flickoff.model.TMDBCreditsResponse;
 import bapspatil.flickoff.model.TMDBResponse;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -22,6 +23,9 @@ public interface RetrofitAPI {
 
     @GET("search/movie")
     Call<TMDBResponse> searchMovies(@Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE, @Query("query") String QUERY);
+
+    @GET("movie/{movie_id}/credits")
+    Call<TMDBCreditsResponse> getCredits(@Path("movie_id") int MOVIE_ID, @Query("api_key") String API_KEY);
 
     public static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)

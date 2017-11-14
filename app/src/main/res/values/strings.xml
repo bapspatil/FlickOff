@@ -5,6 +5,8 @@
     <string name="highest_rated">Top Rated</string>
     <string name="spinner">Sort By</string>
     <string name="search_title">Search</string>
+    <string name="cast">Cast</string>
+    <string name="cast_images">Cast images</string>
 
     <string-array name="sort_criteria">
         <item>Popular</item>
