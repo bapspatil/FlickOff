@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,7 +40,7 @@ public class DetailsActivity extends AppCompatActivity {
 
 
     private TextView mRatingTextView, mDateTextView, mTitleTextView, mPlotTextView;
-    private ImageView mPosterImageView;
+    private ImageView mPosterImageView, mBackdropImageView;
     private RecyclerView mCastRecyclerView;
     Movie movie;
 
@@ -44,9 +48,11 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setLogo(R.mipmap.ic_launcher);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
+        AppBarLayout appBarLayout = findViewById(R.id.appbar);
 
         if (Build.VERSION.SDK_INT >= 21) {
             Slide slide = new Slide(Gravity.BOTTOM);
@@ -62,6 +68,7 @@ public class DetailsActivity extends AppCompatActivity {
         mPlotTextView = findViewById(R.id.plot_tv);
         mPosterImageView = findViewById(R.id.poster_image_view);
         mCastRecyclerView = findViewById(R.id.cast_rv);
+        mBackdropImageView = findViewById(R.id.backdrop_iv);
 
         Intent receivedIntent = getIntent();
         if (receivedIntent.hasExtra("movie")) {
@@ -71,11 +78,31 @@ public class DetailsActivity extends AppCompatActivity {
                 mDateTextView.setText(prettifyDate(movie.getDate()));
             mTitleTextView.setText(movie.getTitle());
             mPlotTextView.setText(movie.getPlot());
-            GlideApp.with(getApplicationContext())
+            GlideApp.with(this)
                     .load(RetrofitAPI.POSTER_BASE_URL + movie.getPosterPath())
                     .centerCrop()
                     .into(mPosterImageView);
+            GlideApp.with(this)
+                    .load(RetrofitAPI.BACKDROP_BASE_URL + movie.getBackdropPath())
+                    .placeholder(R.drawable.tmdb_placeholder_land)
+                    .error(R.drawable.tmdb_placeholder_land)
+                    .fallback(R.drawable.tmdb_placeholder_land)
+                    .centerCrop()
+                    .into(mBackdropImageView);
         }
+
+        collapsingToolbarLayout.setTitle(movie.getTitle());
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.black));
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if(Math.abs(verticalOffset) - appBarLayout.getTotalScrollRange() == 0)
+                    mPosterImageView.setVisibility(View.GONE);
+                else
+                    mPosterImageView.setVisibility(View.VISIBLE);
+            }
+        });
 
         fetchCredits();
     }
@@ -122,6 +149,16 @@ public class DetailsActivity extends AppCompatActivity {
                 // Why bother doing anything here?
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private String prettifyDate(String jsonDate) {
