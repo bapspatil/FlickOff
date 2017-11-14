@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -86,14 +87,20 @@ public class DetailsActivity extends AppCompatActivity {
         mCastRecyclerView.setAdapter(mCastAdapter);
 
         RetrofitAPI retrofitAPI = RetrofitAPI.retrofit.create(RetrofitAPI.class);
-        Call<TMDBCreditsResponse> creditsCall = retrofitAPI.getCredits(movie.getId(), BuildConfig.TMDB_API_TOKEN);
+        final Call<TMDBCreditsResponse> creditsCall = retrofitAPI.getCredits(movie.getId(), BuildConfig.TMDB_API_TOKEN);
         creditsCall.enqueue(new Callback<TMDBCreditsResponse>() {
             @Override
             public void onResponse(Call<TMDBCreditsResponse> call, Response<TMDBCreditsResponse> response) {
                 TMDBCreditsResponse creditsResponse = response.body();
                 castList.clear();
-                castList.addAll(creditsResponse.getCast());
-                mCastAdapter.notifyDataSetChanged();
+                if(creditsResponse.getCast().size() != 0) {
+                    castList.addAll(creditsResponse.getCast());
+                    mCastAdapter.notifyDataSetChanged();
+                } else {
+                    TextView mCastLabelTextView = findViewById(R.id.cast_label_tv);
+                    mCastLabelTextView.setVisibility(View.GONE);
+                    mCastRecyclerView.setVisibility(View.GONE);
+                }
             }
 
             @Override
