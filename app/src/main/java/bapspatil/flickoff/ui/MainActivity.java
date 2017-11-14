@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     public void onItemClick(int position, CardView posterCardView) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Explode explode = new Explode();
-            explode.excludeTarget(toolbar, true);
+            explode.excludeTarget(posterCardView, true);
             getWindow().setExitTransition(explode);
         }
 

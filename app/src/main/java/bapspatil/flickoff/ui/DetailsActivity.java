@@ -8,6 +8,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -41,6 +42,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     private TextView mRatingTextView, mDateTextView, mTitleTextView, mPlotTextView;
     private ImageView mPosterImageView, mBackdropImageView;
+    private CardView mPosterCardView;
     private RecyclerView mCastRecyclerView;
     Movie movie;
 
@@ -56,10 +58,9 @@ public class DetailsActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= 21) {
             Slide slide = new Slide(Gravity.BOTTOM);
-            slide.excludeTarget(toolbar, true);
-            slide.excludeTarget(android.R.id.statusBarBackground, true);
-            slide.excludeTarget(android.R.id.navigationBarBackground, true);
+            slide.excludeTarget(mPosterCardView, true);
             getWindow().setEnterTransition(slide);
+            postponeEnterTransition();
         }
 
         mRatingTextView = findViewById(R.id.rating_value_tv);
@@ -103,6 +104,8 @@ public class DetailsActivity extends AppCompatActivity {
                     mPosterImageView.setVisibility(View.VISIBLE);
             }
         });
+
+        startPostponedEnterTransition();
 
         fetchCredits();
     }
