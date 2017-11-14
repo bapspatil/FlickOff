@@ -64,7 +64,7 @@ public class DetailsActivity extends AppCompatActivity {
         if (receivedIntent.hasExtra("movie")) {
             movie = receivedIntent.getParcelableExtra("movie");
             mRatingTextView.setText(movie.getRating());
-            if (movie.getDate() != null || movie.equals(""))
+            if (movie.getDate() != null && !movie.getDate().equals(""))
                 mDateTextView.setText(prettifyDate(movie.getDate()));
             mTitleTextView.setText(movie.getTitle());
             mPlotTextView.setText(movie.getPlot());
