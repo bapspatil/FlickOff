@@ -1,26 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="106dp"
-              android:layout_height="209dp"
-              android:layout_margin="4dp"
-              android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/cast_iv"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="106dp"
+    android:layout_height="209dp"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="6dp">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="159dp"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/cast_images"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/cast_tv"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textColor="#000"
-        android:padding="4dp"
-        android:gravity="center"
-        android:textSize="14sp"
-        tools:text="Robert Downey Jr."/>
+        <ImageView
+            android:id="@+id/cast_iv"
+            android:layout_width="match_parent"
+            android:layout_height="159dp"
+            android:contentDescription="@string/cast_images"
+            android:scaleType="centerCrop"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/cast_tv"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:fontFamily="@font/exo_2_medium"
+            android:gravity="center"
+            android:padding="4dp"
+            android:textColor="#000"
+            android:textSize="14sp"
+            tools:text="Robert Downey Jr."/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

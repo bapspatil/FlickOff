@@ -1,6 +1,7 @@
 package bapspatil.flickoff.adapters;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     private ItemClickListener mClickListener;
 
     public interface ItemClickListener {
-        void onItemClick(int position, ImageView posterImageView);
+        void onItemClick(int position, CardView posterCardView);
     }
 
     public MovieRecyclerViewAdapter(Context context, ArrayList<Movie> movieArrayList, ItemClickListener itemClickListener) {
@@ -60,17 +61,19 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView mPosterImageView;
+        CardView mPosterCardView;
 
         MovieViewHolder(View itemView) {
             super(itemView);
             mPosterImageView = itemView.findViewById(R.id.poster_image_view);
+            mPosterCardView = itemView.findViewById(R.id.poster_card_view);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             if (mClickListener != null)
-                mClickListener.onItemClick(getAdapterPosition(), mPosterImageView);
+                mClickListener.onItemClick(getAdapterPosition(), mPosterCardView);
         }
     }
 }

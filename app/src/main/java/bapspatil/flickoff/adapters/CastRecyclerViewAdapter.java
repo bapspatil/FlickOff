@@ -22,10 +22,12 @@ import bapspatil.flickoff.utils.GlideApp;
 public class CastRecyclerViewAdapter extends RecyclerView.Adapter<CastRecyclerViewAdapter.CastViewHolder> {
     private ArrayList<Cast> mCastList;
     private Context mContext;
+    private OnActorClickHandler mActorClickHandler;
 
-    public CastRecyclerViewAdapter(Context context, ArrayList<Cast> cast) {
+    public CastRecyclerViewAdapter(Context context, ArrayList<Cast> cast, OnActorClickHandler onActorClickHandler) {
         this.mContext = context;
         this.mCastList = cast;
+        this.mActorClickHandler = onActorClickHandler;
     }
 
     @Override
@@ -50,7 +52,7 @@ public class CastRecyclerViewAdapter extends RecyclerView.Adapter<CastRecyclerVi
         return mCastList.size();
     }
 
-    public class CastViewHolder extends RecyclerView.ViewHolder {
+    public class CastViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView mCastTextView;
         public ImageView mCastImageView;
 
@@ -58,6 +60,16 @@ public class CastRecyclerViewAdapter extends RecyclerView.Adapter<CastRecyclerVi
             super(itemView);
             mCastImageView = itemView.findViewById(R.id.cast_iv);
             mCastTextView = itemView.findViewById(R.id.cast_tv);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            mActorClickHandler.onActorClicked(mCastTextView.getText().toString());
+        }
+    }
+
+    public interface OnActorClickHandler {
+        void onActorClicked(String actorName);
     }
 }

@@ -30,24 +30,33 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="8dp"
+                    android:fontFamily="@font/exo_2_medium"
                     android:text="@string/app_name"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"/>
             </FrameLayout>
         </android.support.v7.widget.Toolbar>
 
-
-        <ImageView
-            android:id="@+id/poster_image_view"
-            android:layout_width="200dp"
-            android:layout_height="300dp"
+        <android.support.v7.widget.CardView
+            android:id="@+id/poster_card_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:contentDescription="This is a poster for the movie."
-            android:scaleType="centerCrop"
             android:transitionName="posterTransition"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="6dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            tools:srcCompat="@color/colorAccent"/>
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <ImageView
+                android:id="@+id/poster_image_view"
+                android:layout_width="200dp"
+                android:layout_height="300dp"
+                android:contentDescription="This is a poster for the movie."
+                android:scaleType="centerCrop"
+                tools:srcCompat="@color/colorAccent"/>
+        </android.support.v7.widget.CardView>
 
         <TextView
             android:id="@+id/rating_label_tv"
@@ -60,7 +69,7 @@
             android:textColor="#212121"
             android:textSize="12sp"
             app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintLeft_toRightOf="@+id/poster_image_view"
+            app:layout_constraintLeft_toRightOf="@+id/poster_card_view"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
@@ -76,7 +85,7 @@
             android:textColor="#212121"
             android:textSize="26sp"
             app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintLeft_toRightOf="@+id/poster_image_view"
+            app:layout_constraintLeft_toRightOf="@+id/poster_card_view"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rating_label_tv"
             tools:text="10.0"/>
@@ -92,7 +101,7 @@
             android:textColor="#212121"
             android:textSize="12sp"
             app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintLeft_toRightOf="@+id/poster_image_view"
+            app:layout_constraintLeft_toRightOf="@+id/poster_card_view"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rating_value_tv"/>
 
@@ -106,7 +115,7 @@
             android:textColor="#212121"
             android:textSize="26sp"
             app:layout_constraintHorizontal_bias="0.504"
-            app:layout_constraintLeft_toRightOf="@+id/poster_image_view"
+            app:layout_constraintLeft_toRightOf="@+id/poster_card_view"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/date_label_tv"
             tools:text="12/13/1989"/>
@@ -118,8 +127,9 @@
             android:padding="24dp"
             android:textColor="#212121"
             android:textSize="32sp"
+            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/poster_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/poster_card_view"
             tools:text="A Very Long Title Of The Movie"/>
 
         <TextView
@@ -138,23 +148,30 @@
 
         <TextView
             android:id="@+id/cast_label_tv"
-            style="@style/TextAppearance.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:text="@string/cast"
             android:textColor="#000"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/plot_tv"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/cast_rv"
-            android:layout_width="match_parent"
+        <FrameLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:nestedScrollingEnabled="true"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cast_label_tv"/>
+            app:layout_constraintTop_toBottomOf="@id/cast_label_tv">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/cast_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="true"/>
+
+        </FrameLayout>
 
     </android.support.constraint.ConstraintLayout>
 

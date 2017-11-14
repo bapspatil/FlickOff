@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -16,7 +17,6 @@ import android.transition.Explode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -54,10 +54,6 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         toolbar = findViewById(R.id.toolbar);
         toolbar.setLogo(R.mipmap.ic_launcher);
         setSupportActionBar(toolbar);
-
-        if(Build.VERSION.SDK_INT >= 21) {
-            getWindow().setExitTransition(new Explode());
-        }
 
         Toast.makeText(mContext, "App developed by Bapusaheb Patil", Toast.LENGTH_LONG).show();
 
@@ -125,12 +121,18 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     }
 
     @Override
-    public void onItemClick(int position, ImageView posterImageView) {
+    public void onItemClick(int position, CardView posterCardView) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Explode explode = new Explode();
+            explode.excludeTarget(toolbar, true);
+            getWindow().setExitTransition(explode);
+        }
+
         Movie movie;
         movie = movieArray.get(position);
         Intent startDetailsActivity = new Intent(mContext, DetailsActivity.class);
         startDetailsActivity.putExtra("movie", movie);
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, posterImageView, "posterTransition");
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, posterCardView, "posterTransition");
         startActivity(startDetailsActivity, options.toBundle());
     }
 
@@ -186,6 +188,18 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         searchView.setMenuItem(item);
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.about_me:
+                Intent intentToAboutMe = new Intent(this, AboutMeActivity.class);
+                startActivity(intentToAboutMe);
+                return true;
+            default:
+                return true;
+        }
     }
 
     @Override

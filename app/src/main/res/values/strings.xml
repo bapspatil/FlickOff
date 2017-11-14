@@ -5,8 +5,14 @@
     <string name="highest_rated">Top Rated</string>
     <string name="spinner">Sort By</string>
     <string name="search_title">Search</string>
-    <string name="cast">Cast</string>
+    <string name="cast">CAST</string>
     <string name="cast_images">Cast images</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="about_me">About Me</string>
+    <string name="bapusaheb_patil">Bapusaheb Patil</string>
+    <string name="my_picture">My picture</string>
 
     <string-array name="sort_criteria">
         <item>Popular</item>

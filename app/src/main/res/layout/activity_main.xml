@@ -26,8 +26,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="8dp"
+                    android:fontFamily="@font/exo_2_medium"
                     android:text="@string/app_name"
-                    android:textColor="@color/colorPrimaryDarker"/>
+                    android:textColor="@color/colorPrimaryDarker"
+                    android:textStyle="bold"/>
             </FrameLayout>
         </android.support.v7.widget.Toolbar>
 

@@ -1,6 +1,7 @@
 package bapspatil.flickoff.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -49,6 +50,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= 21) {
             Slide slide = new Slide(Gravity.BOTTOM);
+            slide.excludeTarget(toolbar, true);
             slide.excludeTarget(android.R.id.statusBarBackground, true);
             slide.excludeTarget(android.R.id.navigationBarBackground, true);
             getWindow().setEnterTransition(slide);
@@ -83,7 +85,19 @@ public class DetailsActivity extends AppCompatActivity {
         mCastRecyclerView.setLayoutManager(layoutManager);
 
         final ArrayList<Cast> castList = new ArrayList<>();
-        final CastRecyclerViewAdapter mCastAdapter = new CastRecyclerViewAdapter(this, castList);
+        final CastRecyclerViewAdapter mCastAdapter = new CastRecyclerViewAdapter(this, castList, new CastRecyclerViewAdapter.OnActorClickHandler() {
+            @Override
+            public void onActorClicked(String actorName) {
+                try {
+                    Uri uri = Uri.parse("https://www.google.com/search?q=" + actorName + " movies");
+                    Intent actorMoviesIntent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(actorMoviesIntent);
+                } catch (Exception e) {
+                    // Who doesn't have Google? Or a browser?
+                    e.printStackTrace();
+                }
+            }
+        });
         mCastRecyclerView.setAdapter(mCastAdapter);
 
         RetrofitAPI retrofitAPI = RetrofitAPI.retrofit.create(RetrofitAPI.class);

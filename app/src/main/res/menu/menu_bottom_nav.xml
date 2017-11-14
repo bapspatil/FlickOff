@@ -5,25 +5,25 @@
     <item
         android:id="@+id/action_popular"
         android:enabled="true"
-        android:title="Popular"
+        android:title="@string/popular"
         android:icon="@drawable/ic_timeline_black_24dp"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_rated"
         android:enabled="true"
-        android:title="Top Rated"
+        android:title="@string/top_rated"
         android:icon="@drawable/ic_stars_black_24dp"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_upcoming"
         android:enabled="true"
         android:icon="@drawable/ic_hourglass_empty_black_24dp"
-        android:title="Upcoming"
+        android:title="@string/upcoming"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_now"
         android:enabled="true"
-        android:title="Now Playing"
+        android:title="@string/now_playing"
         android:icon="@drawable/ic_play_circle_filled_black_24dp"
         app:showAsAction="ifRoom"/>
 
