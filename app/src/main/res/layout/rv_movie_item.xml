@@ -12,12 +12,12 @@
         app:cardUseCompatPadding="true"
         app:cardBackgroundColor="#212121"
         app:cardCornerRadius="8dp"
-        android:transitionName="posterTransition"
         app:cardElevation="12dp">
 
         <ImageView
             android:id="@+id/poster_image_view"
             android:layout_width="match_parent"
+            android:transitionName="posterTransition"
             android:layout_height="match_parent"
             android:contentDescription="@string/poster_iv_info"
             android:scaleType="centerCrop"/>

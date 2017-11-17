@@ -16,6 +16,7 @@ import android.transition.Slide;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,7 +43,6 @@ public class DetailsActivity extends AppCompatActivity {
 
     private TextView mRatingTextView, mDateTextView, mTitleTextView, mPlotTextView;
     private ImageView mPosterImageView, mBackdropImageView;
-    private CardView mPosterCardView;
     private RecyclerView mCastRecyclerView;
     Movie movie;
 
@@ -50,18 +50,18 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Slide slide = new Slide(Gravity.BOTTOM);
+            getWindow().setEnterTransition(slide);
+            postponeEnterTransition();
+        }
+
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
         AppBarLayout appBarLayout = findViewById(R.id.appbar);
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            Slide slide = new Slide(Gravity.BOTTOM);
-            slide.excludeTarget(mPosterCardView, true);
-            getWindow().setEnterTransition(slide);
-            postponeEnterTransition();
-        }
 
         mRatingTextView = findViewById(R.id.rating_value_tv);
         mDateTextView = findViewById(R.id.date_value_tv);
@@ -98,16 +98,16 @@ public class DetailsActivity extends AppCompatActivity {
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if(Math.abs(verticalOffset) - appBarLayout.getTotalScrollRange() == 0)
+                if (Math.abs(verticalOffset) - appBarLayout.getTotalScrollRange() == 0)
                     mPosterImageView.setVisibility(View.GONE);
                 else
                     mPosterImageView.setVisibility(View.VISIBLE);
             }
         });
 
-        startPostponedEnterTransition();
-
         fetchCredits();
+
+        startPostponedEnterTransition();
     }
 
     private void fetchCredits() {
@@ -137,7 +137,7 @@ public class DetailsActivity extends AppCompatActivity {
             public void onResponse(Call<TMDBCreditsResponse> call, Response<TMDBCreditsResponse> response) {
                 TMDBCreditsResponse creditsResponse = response.body();
                 castList.clear();
-                if(creditsResponse.getCast().size() != 0) {
+                if (creditsResponse.getCast().size() != 0) {
                     castList.addAll(creditsResponse.getCast());
                     mCastAdapter.notifyDataSetChanged();
                 } else {
@@ -176,4 +176,5 @@ public class DetailsActivity extends AppCompatActivity {
         String dateStr = destDateFormat.format(date);
         return dateStr;
     }
+
 }
