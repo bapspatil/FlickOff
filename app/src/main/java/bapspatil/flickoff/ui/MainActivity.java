@@ -2,7 +2,6 @@ package bapspatil.flickoff.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -67,8 +66,6 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         mProgressBar = findViewById(R.id.loading_indicator);
         mRecyclerView = findViewById(R.id.rv_movies);
         int columns = 2;
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-            columns = 4;
         final GridLayoutManager layoutManager = new GridLayoutManager(mContext, columns);
         mRecyclerView.setLayoutManager(layoutManager);
 
@@ -81,15 +78,19 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_popular:
+                        mRecyclerView.smoothScrollToPosition(0);
                         fetchMovies(POPULAR_TASK, null);
                         break;
                     case R.id.action_rated:
+                        mRecyclerView.smoothScrollToPosition(0);
                         fetchMovies(TOP_RATED_TASK, null);
                         break;
                     case R.id.action_upcoming:
+                        mRecyclerView.smoothScrollToPosition(0);
                         fetchMovies(UPCOMING_TASK, null);
                         break;
                     case R.id.action_now:
+                        mRecyclerView.smoothScrollToPosition(0);
                         fetchMovies(NOW_PLAYING_TASK, null);
                         break;
                 }
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String query) {
+                mRecyclerView.smoothScrollToPosition(0);
                 fetchMovies(SEARCH_TASK, query);
                 searchView.closeSearch();
                 return true;
