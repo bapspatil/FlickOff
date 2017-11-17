@@ -9,7 +9,7 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/about_me"
+        android:id="@+id/action_about_me"
         android:title="@string/about_me"
         android:orderInCategory="2"
         app:showAsAction="ifRoom"

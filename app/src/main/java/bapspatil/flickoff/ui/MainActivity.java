@@ -9,11 +9,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
 import android.transition.Slide;
 import android.view.Gravity;
 import android.view.Menu;
@@ -197,9 +195,10 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.about_me:
+            case R.id.action_about_me:
                 Intent intentToAboutMe = new Intent(this, AboutMeActivity.class);
-                startActivity(intentToAboutMe);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(this, android.R.anim.fade_in, android.R.anim.fade_out);
+                startActivity(intentToAboutMe, options.toBundle());
                 return true;
             default:
                 return true;
