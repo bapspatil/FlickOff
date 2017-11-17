@@ -76,11 +76,11 @@
             <TextView
                 android:id="@+id/title_tv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_height="81dp"
+                android:gravity="center"
                 android:layout_marginEnd="172dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:textColor="#212121"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -89,12 +89,16 @@
             <LinearLayout
                 android:id="@+id/release_info"
                 android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <FrameLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:layout_margin="16dp">
 
                     <TextView
@@ -116,7 +120,8 @@
                 </FrameLayout>
 
                 <FrameLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.2"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp">
 
@@ -124,7 +129,7 @@
                         android:id="@+id/date_label_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="RELEASE DATE"
+                        android:text="RELEASE"
                         android:textColor="#212121"
                         android:textSize="12sp"/>
 
@@ -134,8 +139,32 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:textColor="#212121"
-                        android:textSize="26sp"
+                        android:textSize="20sp"
                         tools:text="Dec 13\n1989"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp">
+
+                    <TextView
+                        android:id="@+id/director_label_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DIRECTOR"
+                        android:textColor="#212121"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:id="@+id/director_value_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:textColor="#212121"
+                        android:textSize="20sp"
+                        tools:text="Steven Spielberg"/>
                 </FrameLayout>
 
             </LinearLayout>

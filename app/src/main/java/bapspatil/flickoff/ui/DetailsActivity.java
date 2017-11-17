@@ -28,6 +28,7 @@ import bapspatil.flickoff.BuildConfig;
 import bapspatil.flickoff.R;
 import bapspatil.flickoff.adapters.CastRecyclerViewAdapter;
 import bapspatil.flickoff.model.Cast;
+import bapspatil.flickoff.model.Crew;
 import bapspatil.flickoff.model.Movie;
 import bapspatil.flickoff.model.TMDBCreditsResponse;
 import bapspatil.flickoff.network.RetrofitAPI;
@@ -39,7 +40,7 @@ import retrofit2.Response;
 public class DetailsActivity extends AppCompatActivity {
 
 
-    private TextView mRatingTextView, mDateTextView, mTitleTextView, mPlotTextView;
+    private TextView mRatingTextView, mDateTextView, mTitleTextView, mPlotTextView, mDirectorTextView;
     private ImageView mPosterImageView, mBackdropImageView;
     private RecyclerView mCastRecyclerView;
     Movie movie;
@@ -68,6 +69,8 @@ public class DetailsActivity extends AppCompatActivity {
         mPosterImageView = findViewById(R.id.poster_image_view);
         mCastRecyclerView = findViewById(R.id.cast_rv);
         mBackdropImageView = findViewById(R.id.backdrop_iv);
+        mDirectorTextView = findViewById(R.id.director_value_tv);
+        mDirectorTextView.setText("N/A"); // What if the director isn't available? Busy guy...
 
         Intent receivedIntent = getIntent();
         if (receivedIntent.hasExtra("movie")) {
@@ -134,6 +137,8 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<TMDBCreditsResponse> call, Response<TMDBCreditsResponse> response) {
                 TMDBCreditsResponse creditsResponse = response.body();
+
+                // Get cast info
                 castList.clear();
                 if (creditsResponse.getCast().size() != 0) {
                     castList.addAll(creditsResponse.getCast());
@@ -142,6 +147,14 @@ public class DetailsActivity extends AppCompatActivity {
                     TextView mCastLabelTextView = findViewById(R.id.cast_label_tv);
                     mCastLabelTextView.setVisibility(View.GONE);
                     mCastRecyclerView.setVisibility(View.GONE);
+                }
+
+                // Get director info
+                for(Crew crew: creditsResponse.getCrew()) {
+                    if(crew.getJob().equals("Director")) {
+                        mDirectorTextView.setText(crew.getName());
+                        break;
+                    }
                 }
             }
 
