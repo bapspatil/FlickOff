@@ -176,14 +176,14 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private String prettifyDate(String jsonDate) {
-        DateFormat sourceDateFormat = new SimpleDateFormat("YYYY-MM-dd");
+        DateFormat sourceDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
         try {
             date = sourceDateFormat.parse(jsonDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        DateFormat destDateFormat = new SimpleDateFormat("MMM dd\nYYYY");
+        DateFormat destDateFormat = new SimpleDateFormat("MMM dd\nyyyy");
         String dateStr = destDateFormat.format(date);
         return dateStr;
     }
