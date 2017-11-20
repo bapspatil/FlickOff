@@ -20,6 +20,7 @@
         <activity
             android:name=".ui.DetailsActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Details"
             android:parentActivityName=".ui.MainActivity">
         </activity>
         <activity

@@ -21,6 +21,11 @@
         <item name="android:windowContentTransitions">true</item>
     </style>
 
+    <!-- Theme for Details Activity to make the status bar transparent -->
+    <style name="AppTheme.Details" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
     <style name="AppBarTheme" parent="AppTheme">
         <item name="colorPrimary">#FFF</item>
         <item name="android:colorControlNormal">#000</item>
