@@ -14,17 +14,19 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.MainActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.DetailsActivity"
+            android:parentActivityName=".ui.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Details"
-            android:parentActivityName=".ui.MainActivity">
+            android:theme="@style/AppTheme.Details">
         </activity>
         <activity
             android:name=".ui.SplashScreenActivity"
+            android:launchMode="singleTop"
+            android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -33,7 +35,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.AboutMeActivity">
+        <activity
+            android:name=".ui.AboutMeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
