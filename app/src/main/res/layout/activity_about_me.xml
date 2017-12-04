@@ -71,8 +71,8 @@
 
             <ImageView
                 android:id="@+id/play_iv"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginEnd="24dp"
                 android:src="@drawable/play_store"/>
 
