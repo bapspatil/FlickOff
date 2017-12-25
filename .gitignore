@@ -11,3 +11,4 @@ gradle.properties
 app/libs/
 app/release/
 /gradle.properties
+app/google-services.json
