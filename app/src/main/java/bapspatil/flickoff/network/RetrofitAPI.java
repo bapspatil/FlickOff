@@ -15,9 +15,9 @@ import retrofit2.http.Query;
 
 public interface RetrofitAPI {
 
-    public static final String POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342";
-    public static final String BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w500";
-    public static final String BASE_URL = "https://api.themoviedb.org/3/";
+    String POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342";
+    String BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w500";
+    String BASE_URL = "https://api.themoviedb.org/3/";
 
     @GET("movie/{type}")
     Call<TMDBResponse> getMovies(@Path("type") String TYPE, @Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE);
@@ -28,7 +28,7 @@ public interface RetrofitAPI {
     @GET("movie/{movie_id}/credits")
     Call<TMDBCreditsResponse> getCredits(@Path("movie_id") int MOVIE_ID, @Query("api_key") String API_KEY);
 
-    public static Retrofit retrofit = new Retrofit.Builder()
+    Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();

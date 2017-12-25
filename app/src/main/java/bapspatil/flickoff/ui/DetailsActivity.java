@@ -33,6 +33,7 @@ import bapspatil.flickoff.model.Movie;
 import bapspatil.flickoff.model.TMDBCreditsResponse;
 import bapspatil.flickoff.network.RetrofitAPI;
 import bapspatil.flickoff.utils.GlideApp;
+import bapspatil.flickoff.utils.NetworkUtils;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -134,7 +135,7 @@ public class DetailsActivity extends AppCompatActivity {
         });
         mCastRecyclerView.setAdapter(new ScaleInAnimationAdapter(mCastAdapter));
 
-        RetrofitAPI retrofitAPI = RetrofitAPI.retrofit.create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         final Call<TMDBCreditsResponse> creditsCall = retrofitAPI.getCredits(movie.getId(), BuildConfig.TMDB_API_TOKEN);
         creditsCall.enqueue(new Callback<TMDBCreditsResponse>() {
             @Override
@@ -143,7 +144,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                 // Get cast info
                 castList.clear();
-                if (creditsResponse.getCast().size() != 0) {
+                if (creditsResponse != null && creditsResponse.getCast().size() != 0) {
                     castList.addAll(creditsResponse.getCast());
                     mCastAdapter.notifyDataSetChanged();
                 } else {
@@ -153,10 +154,12 @@ public class DetailsActivity extends AppCompatActivity {
                 }
 
                 // Get director info
-                for(Crew crew: creditsResponse.getCrew()) {
-                    if(crew.getJob().equals("Director")) {
-                        mDirectorTextView.setText(crew.getName());
-                        break;
+                if (creditsResponse != null) {
+                    for(Crew crew: creditsResponse.getCrew()) {
+                        if(crew.getJob().equals("Director")) {
+                            mDirectorTextView.setText(crew.getName());
+                            break;
+                        }
                     }
                 }
             }
