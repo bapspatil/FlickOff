@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/poster_iv_info"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:transitionName="posterTransition"/>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

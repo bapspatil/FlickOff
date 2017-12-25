@@ -33,6 +33,7 @@ import bapspatil.flickoff.model.Movie;
 import bapspatil.flickoff.model.TMDBCreditsResponse;
 import bapspatil.flickoff.network.RetrofitAPI;
 import bapspatil.flickoff.utils.GlideApp;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -108,7 +109,9 @@ public class DetailsActivity extends AppCompatActivity {
 
         fetchCredits();
 
-        startPostponedEnterTransition();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startPostponedEnterTransition();
+        }
     }
 
     private void fetchCredits() {
@@ -129,7 +132,7 @@ public class DetailsActivity extends AppCompatActivity {
                 }
             }
         });
-        mCastRecyclerView.setAdapter(mCastAdapter);
+        mCastRecyclerView.setAdapter(new ScaleInAnimationAdapter(mCastAdapter));
 
         RetrofitAPI retrofitAPI = RetrofitAPI.retrofit.create(RetrofitAPI.class);
         final Call<TMDBCreditsResponse> creditsCall = retrofitAPI.getCredits(movie.getId(), BuildConfig.TMDB_API_TOKEN);

@@ -30,7 +30,7 @@ import bapspatil.flickoff.adapters.MovieRecyclerViewAdapter;
 import bapspatil.flickoff.model.Movie;
 import bapspatil.flickoff.model.TMDBResponse;
 import bapspatil.flickoff.network.RetrofitAPI;
-import it.gmariotti.recyclerview.adapter.ScaleInAnimatorAdapter;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -124,8 +124,8 @@ public class MainActivity extends AppCompatActivity implements MovieRecyclerView
                 bottomNavigationView.setVisibility(View.VISIBLE);
             }
         });
-        ScaleInAnimatorAdapter<MovieRecyclerViewAdapter.MovieViewHolder> animatorAdapter = new ScaleInAnimatorAdapter<>(mAdapter, mRecyclerView);
-        mRecyclerView.setAdapter(animatorAdapter);
+
+        mRecyclerView.setAdapter(new ScaleInAnimationAdapter(mAdapter));
 
     }
 

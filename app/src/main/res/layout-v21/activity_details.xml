@@ -51,6 +51,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
             app:cardCornerRadius="4dp"
             app:cardElevation="6dp"
             app:cardUseCompatPadding="true">
@@ -155,6 +156,7 @@
                             android:textSize="20sp"
                             tools:text="Steven Spielberg"/>
                     </FrameLayout>
+
                 </LinearLayout>
 
                 <TextView
@@ -190,8 +192,11 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/cast_rv"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="true"/>
+
                 </FrameLayout>
+
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </android.support.v4.widget.NestedScrollView>
@@ -211,6 +216,7 @@
             android:layout_width="140dp"
             android:layout_height="210dp"
             android:contentDescription="This is a poster for the movie."
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:transitionName="posterTransition"/>
     </android.support.v7.widget.CardView>
 </android.support.design.widget.CoordinatorLayout>

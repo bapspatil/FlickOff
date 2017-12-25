@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
@@ -39,7 +39,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/my_picture"
-            android:src="@drawable/me2"/>
+            android:src="@drawable/baps"/>
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
