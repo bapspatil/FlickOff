@@ -16,14 +16,14 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/cast_iv"
+            android:id="@+id/castImageView"
             android:layout_width="match_parent"
             android:layout_height="159dp"
             android:contentDescription="@string/cast_images"
             android:scaleType="centerCrop"/>
 
         <TextView
-            android:id="@+id/cast_tv"
+            android:id="@+id/castTextView"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:fontFamily="@font/exo_2_medium"

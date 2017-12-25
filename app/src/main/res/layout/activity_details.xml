@@ -9,13 +9,13 @@
     tools:context="bapspatil.flickoff.ui.DetailsActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="210dp"
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar_layout"
+            android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
@@ -26,7 +26,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
-                android:id="@+id/backdrop_iv"
+                android:id="@+id/backdropImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
@@ -35,7 +35,7 @@
                 tools:src="@drawable/tmdb_placeholder_land"/>
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/detailsToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"/>
@@ -61,7 +61,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/title_tv"
+                    android:id="@+id/titleTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -75,7 +75,7 @@
                     tools:text="A Very Long Title Of The Movie"/>
 
                 <LinearLayout
-                    android:id="@+id/release_info"
+                    android:id="@+id/releaseInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -91,7 +91,7 @@
                         android:layout_weight="1">
 
                         <TextView
-                            android:id="@+id/rating_label_tv"
+                            android:id="@+id/ratingLabelTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="RATING"
@@ -99,7 +99,7 @@
                             android:textSize="12sp"/>
 
                         <TextView
-                            android:id="@+id/rating_value_tv"
+                            android:id="@+id/ratingTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="24dp"
@@ -115,7 +115,7 @@
                         android:layout_weight="1.2">
 
                         <TextView
-                            android:id="@+id/date_label_tv"
+                            android:id="@+id/dateLabelTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="RELEASE"
@@ -123,7 +123,7 @@
                             android:textSize="12sp"/>
 
                         <TextView
-                            android:id="@+id/date_value_tv"
+                            android:id="@+id/dateTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
@@ -139,7 +139,7 @@
                         android:layout_weight="2">
 
                         <TextView
-                            android:id="@+id/director_label_tv"
+                            android:id="@+id/directorLabelTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="DIRECTOR"
@@ -147,7 +147,7 @@
                             android:textSize="12sp"/>
 
                         <TextView
-                            android:id="@+id/director_value_tv"
+                            android:id="@+id/directorTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
@@ -155,10 +155,11 @@
                             android:textSize="20sp"
                             tools:text="Steven Spielberg"/>
                     </FrameLayout>
+
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/plot_tv"
+                    android:id="@+id/plotTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -169,10 +170,10 @@
                     android:paddingStart="24dp"
                     android:textColor="#212121"
                     android:textSize="16sp"
-                    tools:text="This is gonna be a plot synopsis of the movie. This data will be fetched by the TMDB API. And this will contain info of the movie script."/>
+                    tools:text="This is gonna be a plot synopsis of the mMovie. This data will be fetched by the TMDB API. And this will contain info of the mMovie script."/>
 
                 <TextView
-                    android:id="@+id/cast_label_tv"
+                    android:id="@+id/castLabelTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -188,7 +189,7 @@
                     android:layout_marginTop="8dp">
 
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/cast_rv"
+                        android:id="@+id/castRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </FrameLayout>
@@ -197,20 +198,20 @@
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/poster_card_view"
+        android:id="@+id/posterCardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:cardUseCompatPadding="true"
-        app:layout_anchor="@id/appbar"
+        app:layout_anchor="@id/appBar"
         app:layout_anchorGravity="bottom|center">
 
         <ImageView
-            android:id="@+id/poster_image_view"
+            android:id="@+id/posterImageView"
             android:layout_width="140dp"
             android:layout_height="210dp"
-            android:contentDescription="This is a poster for the movie."
+            android:contentDescription="This is a poster for the mMovie."
             android:scaleType="centerCrop"/>
     </android.support.v7.widget.CardView>
 </android.support.design.widget.CoordinatorLayout>
