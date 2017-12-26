@@ -11,8 +11,8 @@ android {
         applicationId "bapspatil.flickoff"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 12
-        versionName "1.3.1"
+        versionCode 13
+        versionName "1.3.2"
     }
     buildTypes {
         release {
