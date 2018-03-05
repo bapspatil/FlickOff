@@ -1,6 +1,5 @@
 package bapspatil.flickoff.ui
 
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.NavUtils
 import android.support.v4.content.ContextCompat
@@ -38,10 +37,8 @@ class DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.enterTransition = Slide(Gravity.BOTTOM)
-            postponeEnterTransition()
-        }
+        window.enterTransition = Slide(Gravity.BOTTOM)
+        postponeEnterTransition()
 
         setSupportActionBar(detailsToolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -81,9 +78,7 @@ class DetailsActivity : AppCompatActivity() {
 
         fetchCredits()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            startPostponedEnterTransition()
-        }
+        startPostponedEnterTransition()
     }
 
     private fun fetchCredits() {
