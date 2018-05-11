@@ -13,6 +13,9 @@ class AboutMeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_about_me)
         aboutToolbar.title = ""
         setSupportActionBar(aboutToolbar)
+        websiteImageView.setOnClickListener {
+            browse("https://bapspatil.com")
+        }
         playImageView.setOnClickListener {
             browse("https://play.google.com/store/apps/dev?id=7368032842071222295")
         }

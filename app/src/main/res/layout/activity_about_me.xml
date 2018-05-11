@@ -14,8 +14,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/aboutToolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorAccent">
+            android:layout_height="?android:attr/actionBarSize">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -25,7 +24,7 @@
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/exo_2_medium"
                     android:text="@string/about_me"
                     android:textColor="@color/colorPrimaryDarker"
@@ -70,9 +69,18 @@
             android:layout_marginBottom="16dp">
 
             <ImageView
+                android:id="@+id/websiteImageView"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="16dp"
+                android:tooltipText="My Website"
+                android:src="@drawable/ic_browser_black_48dp"/>
+
+            <ImageView
                 android:id="@+id/playImageView"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:tooltipText="My Play Store Page"
                 android:layout_marginEnd="24dp"
                 android:src="@drawable/play_store"/>
 
@@ -80,7 +88,9 @@
                 android:id="@+id/githubImageView"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
+                android:tooltipText="My GitHub Profile"
                 android:src="@drawable/github"/>
+
         </LinearLayout>
 
     </LinearLayout>
