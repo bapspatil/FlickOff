@@ -1,5 +1,6 @@
 package bapspatil.flickoff.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.NavUtils
 import android.support.v4.content.ContextCompat
@@ -42,6 +43,11 @@ class DetailsActivity : AppCompatActivity() {
 
         setSupportActionBar(detailsToolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            window.navigationBarColor = ContextCompat.getColor(this, android.R.color.transparent)
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        }
 
         directorTextView.text = "N/A" // What if the director isn't available? Busy guy...
 

@@ -1,75 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <FrameLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#FAFAFA"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/mainToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorAccent">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/exo_2_medium"
-                    android:text="@string/app_name"
-                    android:textColor="@color/colorPrimaryDarker"
-                    android:textStyle="bold"/>
-            </FrameLayout>
-        </android.support.v7.widget.Toolbar>
-
-        <com.miguelcatalan.materialsearchview.MaterialSearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </FrameLayout>
-
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/moviesRecyclerView"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbarThumbVertical="@color/colorPrimary"
-            android:scrollbars="vertical"/>
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppBarTheme"
+            app:contentScrim="@color/colorPrimary"
+            app:expandedTitleMarginEnd="48dp"
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="snap">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center"
-            android:theme="@style/Theme.AppCompat.Light"
-            android:visibility="invisible"/>
+            <com.arlib.floatingsearchview.FloatingSearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                app:floatingSearch_backgroundColor="#FFF"
+                app:floatingSearch_close_search_on_keyboard_dismiss="true"
+                app:floatingSearch_dimBackground="false"
+                app:floatingSearch_leftActionMode="showSearch"
+                app:floatingSearch_menu="@menu/menu_main"
+                app:floatingSearch_searchBarMarginLeft="8dp"
+                app:floatingSearch_searchBarMarginRight="8dp"
+                app:floatingSearch_searchHint="FlickOff"
+                app:floatingSearch_showSearchKey="true"
+                app:floatingSearch_viewTextColor="@color/black" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
 
-    </FrameLayout>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottomNavigation"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/colorAccent"
-        app:itemBackground="?android:selectableItemBackground"
-        app:itemIconTint="@color/selector"
-        app:itemTextColor="@color/selector"
-        app:menu="@menu/menu_bottom_nav"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:animateLayoutChanges="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/moviesRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbarThumbVertical="@color/colorPrimary"
+                android:scrollbars="vertical"
+                tools:layoutManager="android.support.v7.widget.GridLayoutManager"
+                tools:listitem="@layout/rv_movie_item"
+                tools:spanCount="2" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center"
+                android:theme="@style/Theme.AppCompat.Light"
+                android:visibility="invisible" />
+
+        </FrameLayout>
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
+            app:itemBackground="?android:selectableItemBackground"
+            app:itemIconTint="@color/selector"
+            app:itemTextColor="@color/selector"
+            app:menu="@menu/menu_bottom_nav" />
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

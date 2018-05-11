@@ -1,10 +1,12 @@
 package bapspatil.flickoff.ui
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.transition.Slide
 import android.view.Gravity
 import android.view.Menu
@@ -18,7 +20,8 @@ import bapspatil.flickoff.model.Movie
 import bapspatil.flickoff.model.TMDBResponse
 import bapspatil.flickoff.network.RetrofitAPI
 import bapspatil.flickoff.utils.NetworkUtils
-import com.miguelcatalan.materialsearchview.MaterialSearchView
+import com.arlib.floatingsearchview.FloatingSearchView
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.intentFor
@@ -45,12 +48,15 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.ItemClickList
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.exitTransition = Slide(Gravity.LEFT)
+        window.exitTransition = Slide(Gravity.LEFT)
+        window.statusBarColor = Color.parseColor("#FFFFFF")
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
-
-        mainToolbar!!.setLogo(R.mipmap.ic_launcher)
-        setSupportActionBar(mainToolbar)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            window.navigationBarColor = Color.parseColor("#FFFFFF")
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         longToast("App developed by Bapusaheb Patil")
 
@@ -83,31 +89,36 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.ItemClickList
             true
         }
 
-        searchView!!.setCursorDrawable(R.drawable.cursor_search)
-        searchView!!.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
+        searchView!!.setOnSearchListener(object : FloatingSearchView.OnSearchListener {
+            override fun onSearchAction(currentQuery: String?) {
                 moviesRecyclerView!!.smoothScrollToPosition(0)
-                fetchMovies(SEARCH_TASK, query)
-                searchView!!.closeSearch()
-                return true
+                fetchMovies(SEARCH_TASK, currentQuery)
+                searchView!!.clearQuery()
             }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                return false
+            override fun onSuggestionClicked(searchSuggestion: SearchSuggestion?) {
             }
         })
-        searchView!!.setOnSearchViewListener(object : MaterialSearchView.SearchViewListener {
-            override fun onSearchViewShown() {
-                bottomNavigation.visibility = View.INVISIBLE
+        searchView!!.setOnMenuItemClickListener { item: MenuItem? ->
+            when (item?.itemId) {
+                R.id.action_about_me -> {
+                    val options = ActivityOptionsCompat.makeCustomAnimation(this, android.R.anim.fade_in, android.R.anim.fade_out)
+                    startActivity(intentFor<AboutMeActivity>(), options.toBundle())
+                }
             }
-
-            override fun onSearchViewClosed() {
-                bottomNavigation.visibility = View.VISIBLE
-            }
-        })
+        }
 
         moviesRecyclerView!!.adapter = ScaleInAnimationAdapter(mAdapter)
-
+        moviesRecyclerView!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {// Scrolled up
+                    bottomNavigation.visibility = View.GONE
+                } else {
+                    bottomNavigation.visibility = View.VISIBLE
+                }
+            }
+        })
     }
 
     override fun onItemClick(position: Int, posterImageView: ImageView) {
@@ -117,7 +128,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.ItemClickList
         startActivity(intentFor<DetailsActivity>("movie" to movie), options.toBundle())
     }
 
-    private fun fetchMovies(taskId: Int, taskQuery: String?) {
+    private fun fetchMovies(taskId: Int, taskQuery: CharSequence?) {
         moviesRecyclerView!!.visibility = View.INVISIBLE
         progressBar!!.visibility = View.VISIBLE
         val retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(applicationContext).create(RetrofitAPI::class.java)
@@ -153,26 +164,23 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.ItemClickList
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
 
-        val item = menu.findItem(R.id.action_search)
-        searchView!!.setMenuItem(item)
-
         return true
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_about_me -> {
-                val options = ActivityOptionsCompat.makeCustomAnimation(this, android.R.anim.fade_in, android.R.anim.fade_out)
-                startActivity(intentFor<AboutMeActivity>(), options.toBundle())
-                true
-            }
-            else -> true
-        }
-    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return when (item.itemId) {
+//            R.id.action_about_me -> {
+//                val options = ActivityOptionsCompat.makeCustomAnimation(this, android.R.anim.fade_in, android.R.anim.fade_out)
+//                startActivity(intentFor<AboutMeActivity>(), options.toBundle())
+//                true
+//            }
+//            else -> true
+//        }
+//    }
 
     override fun onBackPressed() {
-        if (searchView!!.isSearchOpen)
-            searchView!!.closeSearch()
+        if (searchView!!.isSearchBarFocused)
+            searchView!!.clearQuery()
         else
             super.onBackPressed()
     }

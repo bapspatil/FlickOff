@@ -19,7 +19,7 @@ interface RetrofitAPI {
     fun getMovies(@Path("type") TYPE: String, @Query("api_key") API_KEY: String, @Query("language") LANGUAGE: String, @Query("page") PAGE: Int): Call<TMDBResponse>
 
     @GET("search/movie")
-    fun searchMovies(@Query("api_key") API_KEY: String, @Query("language") LANGUAGE: String, @Query("page") PAGE: Int, @Query("query") QUERY: String): Call<TMDBResponse>
+    fun searchMovies(@Query("api_key") API_KEY: String, @Query("language") LANGUAGE: String, @Query("page") PAGE: Int, @Query("query") QUERY: CharSequence): Call<TMDBResponse>
 
     @GET("movie/{movie_id}/credits")
     fun getCredits(@Path("movie_id") MOVIE_ID: Int, @Query("api_key") API_KEY: String): Call<TMDBCreditsResponse>

@@ -25,11 +25,15 @@ android {
     buildTypes.each {
         it.buildConfigField 'String', 'TMDB_API_TOKEN', MyTheMovieDBApiToken
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 ext {
-    sup = '27.1.0'
-    firebase = '11.8.0'
+    sup = '27.1.1'
+    firebase = '15.0.2'
 }
 
 kotlin {
@@ -43,31 +47,28 @@ androidExtensions {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVer"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVer"
     implementation "org.jetbrains.anko:anko:$ankoVer"
     implementation "org.jetbrains.anko:anko-design:$ankoVer"
-    implementation "com.github.matteocrippa:karamba:1.1.0"
-
-    implementation "com.android.support.constraint:constraint-layout:1.0.2"
+    implementation 'com.github.matteocrippa:karamba:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation "com.android.support:appcompat-v7:$sup"
     implementation "com.android.support:support-v4:$sup"
     implementation "com.android.support:cardview-v7:$sup"
     implementation "com.android.support:recyclerview-v7:$sup"
     implementation "com.android.support:design:$sup"
+    implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    kapt "com.github.bumptech.glide:compiler:4.7.1"
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.google.code.gson:gson:2.8.4'
+    implementation 'com.github.arimorty:floatingsearchview:2.1.1'
 
-    implementation "jp.wasabeef:recyclerview-animators:2.3.0"
-    implementation "com.github.bumptech.glide:glide:4.6.1"
-    kapt "com.github.bumptech.glide:compiler:4.6.1"
-    implementation "com.miguelcatalan:materialsearchview:1.4.0"
-    implementation "com.squareup.retrofit2:retrofit:2.3.0"
-    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
-    implementation "com.google.code.gson:gson:2.8.2"
-
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') { transitive = true } // Firebase Crashlytics
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.2@aar') { transitive = true } // Firebase Crashlytics
     implementation "com.google.firebase:firebase-core:$firebase" // Firebase Analytics
     implementation "com.google.firebase:firebase-messaging:$firebase" // Firebase Cloud Messaging
-
 }
 
 apply plugin: 'com.google.gms.google-services' // Google Services Gradle Plugin
