@@ -34,4 +34,7 @@
 -dontwarn java.nio.file.**
 -dontwarn org.codehaus.**
 
+# New rule
+-dontwarn okhttp3.internal.platform.*
+
 
