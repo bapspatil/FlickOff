@@ -2,6 +2,10 @@ package bapspatil.flickoff.di.module
 
 import android.app.Application
 import bapspatil.flickoff.BuildConfig
+import bapspatil.flickoff.utils.rx.AppSchedulerProvider
+import bapspatil.flickoff.utils.rx.SchedulerProvider
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -21,4 +25,10 @@ class AppModule {
     @Singleton
     fun provideContext(application: Application) = application
 
+    @Provides
+    @Singleton
+    fun provideGson(): Gson = GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
+
+    @Provides
+    fun provideSchedulerProvider(): SchedulerProvider = AppSchedulerProvider()
 }

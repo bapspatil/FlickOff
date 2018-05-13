@@ -10,7 +10,9 @@ import javax.inject.Inject
 
 /*
 ** Created by Bapusaheb Patil {@link https://bapspatil.com}
-*/class FlickOffApp : Application(), HasActivityInjector {
+*/
+
+class FlickOffApp : Application(), HasActivityInjector {
 
     @Inject lateinit var dispatchingActivityInjector : DispatchingAndroidInjector<Activity>
 

@@ -12,7 +12,6 @@ import bapspatil.flickoff.network.RetrofitAPI
 import bapspatil.flickoff.utils.GlideApp
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.android.synthetic.main.rv_movie_item.view.*
-import java.util.*
 
 
 class MovieRecyclerViewAdapter(private val mContext: Context, private val mMoviesArrayList: ArrayList<Movie>?, private val mClickListener: ItemClickListener?) : RecyclerView.Adapter<MovieRecyclerViewAdapter.MovieViewHolder>() {
@@ -51,5 +50,14 @@ class MovieRecyclerViewAdapter(private val mContext: Context, private val mMovie
         override fun onClick(v: View) {
             mClickListener?.onItemClick(adapterPosition, posterImageView)
         }
+    }
+
+    fun clearItems() {
+        mMoviesArrayList?.clear()
+    }
+
+    fun addItems(moviesList: ArrayList<Movie>) {
+        mMoviesArrayList?.addAll(moviesList)
+        notifyDataSetChanged()
     }
 }

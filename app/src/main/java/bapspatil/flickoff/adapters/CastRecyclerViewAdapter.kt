@@ -12,7 +12,6 @@ import bapspatil.flickoff.model.Cast
 import bapspatil.flickoff.network.RetrofitAPI
 import bapspatil.flickoff.utils.GlideApp
 import kotlinx.android.synthetic.main.rv_cast.view.*
-import java.util.*
 
 /**
  * Created by bapspatil
@@ -54,5 +53,14 @@ class CastRecyclerViewAdapter(private val mContext: Context, private val mCastLi
 
     interface OnActorClickHandler {
         fun onActorClicked(actorName: String)
+    }
+
+    fun clearItems() {
+        mCastList.clear()
+    }
+
+    fun addItems(castList: ArrayList<Cast>) {
+        mCastList.addAll(castList)
+        notifyDataSetChanged()
     }
 }
