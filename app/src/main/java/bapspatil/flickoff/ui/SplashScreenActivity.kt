@@ -15,6 +15,7 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
 
         val SPLASH_TIME_OUT = 1000
+
         Handler().postDelayed({
             startActivity(intentFor<MainActivity>())
             finish()

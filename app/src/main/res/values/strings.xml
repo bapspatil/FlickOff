@@ -14,6 +14,7 @@
     <string name="bapusaheb_patil">Bapusaheb Patil</string>
     <string name="my_picture">My picture</string>
     <string name="about_me_detail">Hi! I am a Google-certified Android Developer and an IDF-certified UX Designer.\n\nI love making apps, watchfaces and memes.\n\nNot specifically in that order.\n\nSee more of my apps and my work here:</string>
+    <string name="voice_search">Voice Search</string>
 
     <string-array name="sort_criteria">
         <item>Popular</item>

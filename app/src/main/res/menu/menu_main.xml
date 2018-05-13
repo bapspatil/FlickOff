@@ -3,9 +3,16 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_voice"
+        android:title="@string/voice_search"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_keyboard_voice_black_24dp"/>
+
+    <item
         android:id="@+id/action_about_me"
         android:title="@string/about_me"
-        android:orderInCategory="1"
+        android:orderInCategory="2"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_info_outline_black_24dp"/>
 </menu>

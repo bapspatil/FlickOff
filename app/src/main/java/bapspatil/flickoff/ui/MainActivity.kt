@@ -1,8 +1,11 @@
 package bapspatil.flickoff.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -29,7 +32,6 @@ import org.jetbrains.anko.longToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.ItemClickListener {
 
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.ItemClickList
         private val TOP_RATED_TASK = 2
         private val UPCOMING_TASK = 3
         private val NOW_PLAYING_TASK = 4
+        private val VOICE_RECOGNITION_REQUEST_CODE = 13
     }
 
     private var mAdapter: MovieRecyclerViewAdapter? = null
@@ -104,6 +107,9 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.ItemClickList
                 R.id.action_about_me -> {
                     val options = ActivityOptionsCompat.makeCustomAnimation(this, android.R.anim.fade_in, android.R.anim.fade_out)
                     startActivity(intentFor<AboutMeActivity>(), options.toBundle())
+                }
+                R.id.action_voice -> {
+                    startVoiceRecognition()
                 }
             }
         }
@@ -177,6 +183,27 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.ItemClickList
 //            else -> true
 //        }
 //    }
+
+    private fun startVoiceRecognition() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Voice searching...")
+        startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == VOICE_RECOGNITION_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val matches: ArrayList<String>? = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            if (matches != null) {
+                if(matches.isNotEmpty()) {
+                    val query = matches[0]
+                    fetchMovies(SEARCH_TASK, query)
+                    longToast("Searching for $query...")
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 
     override fun onBackPressed() {
         if (searchView!!.isSearchBarFocused)
