@@ -22,6 +22,7 @@ import bapspatil.flickoff.adapters.MovieRecyclerViewAdapter
 import bapspatil.flickoff.model.Movie
 import bapspatil.flickoff.model.TMDBResponse
 import bapspatil.flickoff.network.RetrofitAPI
+import bapspatil.flickoff.ui.about.AboutActivity
 import bapspatil.flickoff.utils.NetworkUtils
 import com.arlib.floatingsearchview.FloatingSearchView
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
@@ -106,7 +107,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.ItemClickList
             when (item?.itemId) {
                 R.id.action_about_me -> {
                     val options = ActivityOptionsCompat.makeCustomAnimation(this, android.R.anim.fade_in, android.R.anim.fade_out)
-                    startActivity(intentFor<AboutMeActivity>(), options.toBundle())
+                    startActivity(intentFor<AboutActivity>(), options.toBundle())
                 }
                 R.id.action_voice -> {
                     startVoiceRecognition()
@@ -177,7 +178,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerViewAdapter.ItemClickList
 //        return when (item.itemId) {
 //            R.id.action_about_me -> {
 //                val options = ActivityOptionsCompat.makeCustomAnimation(this, android.R.anim.fade_in, android.R.anim.fade_out)
-//                startActivity(intentFor<AboutMeActivity>(), options.toBundle())
+//                startActivity(intentFor<AboutActivity>(), options.toBundle())
 //                true
 //            }
 //            else -> true

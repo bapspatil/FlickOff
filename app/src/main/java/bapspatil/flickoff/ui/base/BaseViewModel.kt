@@ -10,11 +10,17 @@ import android.databinding.ObservableBoolean
 import bapspatil.flickoff.utils.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseViewModel<N>(val schedulerProvider: SchedulerProvider) : ViewModel() {
+abstract class BaseViewModel<N>(schedulerProvider: SchedulerProvider) : ViewModel() {
 
     private val isLoading = ObservableBoolean(false)
 
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    lateinit var  mSchedulerProvider: SchedulerProvider
+    lateinit var compositeDisposable: CompositeDisposable
+
+    init {
+        mSchedulerProvider = schedulerProvider
+        compositeDisposable = CompositeDisposable()
+    }
 
     var navigator: N? = null
 

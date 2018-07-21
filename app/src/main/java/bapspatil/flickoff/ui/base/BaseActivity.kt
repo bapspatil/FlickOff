@@ -12,7 +12,6 @@ import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
 import bapspatil.flickoff.utils.NetworkUtils
@@ -23,29 +22,29 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppComp
     // this can probably depend on isLoading variable of BaseViewModel,
     // since its going to be common for all the activities
     private val mProgressDialog: ProgressDialog? = null
-    var viewDataBinding: T? = null
-        private set
+    private var viewDataBinding: T? = null
     private var mViewModel: V? = null
-
     /**
      * Override for set binding variable
      *
      * @return variable id
      */
-    abstract val bindingVariable: Int
+
 
     /**
      * @return layout resource id
      */
-    @get:LayoutRes
-    abstract val layoutId: Int
+
 
     /**
      * Override for set view model
      *
      * @return view model instance
      */
-    abstract val viewModel: V
+
+    abstract fun getBindingVariable(): Int
+    abstract fun getLayoutId(): Int
+    abstract fun getViewModel(): V
 
     val isNetworkConnected: Boolean
         get() = NetworkUtils.hasNetwork(applicationContext)!!
@@ -99,9 +98,9 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppComp
     }
 
     private fun performDataBinding() {
-        viewDataBinding = DataBindingUtil.setContentView(this, layoutId)
-        this.mViewModel = if (mViewModel == null) viewModel else mViewModel
-        viewDataBinding!!.setVariable(bindingVariable, mViewModel)
+        viewDataBinding = DataBindingUtil.setContentView(this, getLayoutId())
+        this.mViewModel = if (mViewModel == null) getViewModel() else mViewModel
+        viewDataBinding!!.setVariable(getBindingVariable(), mViewModel)
         viewDataBinding!!.executePendingBindings()
     }
 }

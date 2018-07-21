@@ -1,16 +1,31 @@
-package bapspatil.flickoff.ui
+package bapspatil.flickoff.ui.about
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import bapspatil.flickoff.BR
 import bapspatil.flickoff.R
-import kotlinx.android.synthetic.main.activity_about_me.*
+import bapspatil.flickoff.databinding.ActivityAboutBinding
+import bapspatil.flickoff.ui.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_about.*
 import org.jetbrains.anko.browse
+import javax.inject.Inject
 
-class AboutMeActivity : AppCompatActivity() {
+class AboutActivity : BaseActivity<ActivityAboutBinding, AboutViewModel>(), AboutNavigator {
+
+    @Inject lateinit var mAboutViewModel: AboutViewModel
+
+    override fun getBindingVariable(): Int = BR.viewModel
+
+    override fun getLayoutId(): Int = R.layout.activity_about
+
+    override fun getViewModel(): AboutViewModel = mAboutViewModel
+
+    override fun handleError(throwable: Throwable) {
+        // Handle any errors here
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about_me)
+        mAboutViewModel.navigator = this
         aboutToolbar.title = ""
         setSupportActionBar(aboutToolbar)
         websiteImageView.setOnClickListener {

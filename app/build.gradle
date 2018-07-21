@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric' // Fabric's Crashlytics Gradle Plugin
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
@@ -58,7 +58,7 @@ androidExtensions {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     kapt "com.android.databinding:compiler:3.1.2"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVer"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVer"
     implementation "org.jetbrains.anko:anko:$ankoVer"
     implementation "org.jetbrains.anko:anko-design:$ankoVer"
     implementation 'com.github.matteocrippa:karamba:1.1.0'

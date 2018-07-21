@@ -16,7 +16,7 @@ class FlickOffApp : Application(), HasActivityInjector {
 
     @Inject lateinit var dispatchingActivityInjector : DispatchingAndroidInjector<Activity>
 
-    override fun activityInjector(): AndroidInjector<Activity> = dispatchingActivityInjector
+    override fun activityInjector(): DispatchingAndroidInjector<Activity> = dispatchingActivityInjector
 
     override fun onCreate() {
         super.onCreate()

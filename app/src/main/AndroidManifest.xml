@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.AboutMeActivity"
+            android:name=".ui.about.AboutActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
         </activity>
