@@ -17,7 +17,7 @@ import javax.inject.Singleton
 @Component(modules = [AndroidInjectionModule::class, AppModule::class, ActivityBuilder::class])
 interface AppComponent {
 
-    fun inject(flickOffApp: FlickOffApp) : Void
+    fun inject(flickOffApp: FlickOffApp) : FlickOffApp
 
     @Component.Builder
     interface Builder {

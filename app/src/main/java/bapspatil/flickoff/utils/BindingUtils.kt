@@ -17,19 +17,15 @@ object BindingUtils {
     @BindingAdapter("adapter")
     fun addCastItems(recyclerView: RecyclerView, casts: ArrayList<Cast>) {
         val adapter = recyclerView.adapter as CastRecyclerViewAdapter
-        if (adapter != null) {
-            adapter.clearItems()
-            adapter.addItems(casts)
-        }
+        adapter?.clearItems()
+        adapter?.addItems(casts)
     }
 
     @BindingAdapter("adapter")
     fun addMovieItems(recyclerView: RecyclerView, movies: ArrayList<Movie>) {
         val adapter = recyclerView.adapter as MovieRecyclerViewAdapter
-        if (adapter != null) {
-            adapter.clearItems()
-            adapter.addItems(movies)
-        }
+        adapter?.clearItems()
+        adapter?.addItems(movies)
     }
 
 }// Not publicly instantiable
