@@ -1,106 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="bapspatil.flickoff.ui.about.AboutActivity">
 
     <data>
+
         <variable
             name="viewModel"
             type="bapspatil.flickoff.ui.about.AboutViewModel" />
     </data>
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/aboutToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/exo_2_medium"
-                    android:text="@string/about_me"
-                    android:textColor="@color/colorPrimaryDarker"
-                    android:textStyle="bold"/>
-            </FrameLayout>
-        </android.support.v7.widget.Toolbar>
-
-        <ImageView
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/my_picture"
-            android:src="@drawable/baps"/>
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Display1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/exo_2_medium"
-            android:text="@string/bapusaheb_patil"
-            android:textColor="#000"/>
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="24dp"
-            android:fontFamily="@font/exo_2_medium"
-            android:gravity="center"
-            android:text="@string/about_me_detail"
-            android:textColor="#000"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:orientation="vertical">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/aboutToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/exo_2_medium"
+                        android:text="@string/about_me"
+                        android:textColor="@color/colorPrimaryDarker"
+                        android:textStyle="bold" />
+                </FrameLayout>
+            </android.support.v7.widget.Toolbar>
 
             <ImageView
-                android:id="@+id/websiteImageView"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginEnd="16dp"
-                android:tooltipText="My Website"
-                android:src="@drawable/ic_browser_black_48dp"/>
+                android:id="@+id/bapsImageView"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/my_picture"
+                android:src="@drawable/baps" />
 
-            <ImageView
-                android:id="@+id/playImageView"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:tooltipText="My Play Store Page"
-                android:layout_marginEnd="24dp"
-                android:src="@drawable/play_store"/>
+            <TextView
+                style="@style/TextAppearance.AppCompat.Display1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/exo_2_medium"
+                android:text="@string/bapusaheb_patil"
+                android:textColor="#000" />
 
-            <ImageView
-                android:id="@+id/githubImageView"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:tooltipText="My GitHub Profile"
-                android:src="@drawable/github"/>
+            <TextView
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="24dp"
+                android:fontFamily="@font/exo_2_medium"
+                android:gravity="center"
+                android:text="@string/about_me_detail"
+                android:textColor="#000" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/websiteImageView"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_browser_black_48dp"
+                    android:tooltipText="My Website" />
+
+                <ImageView
+                    android:id="@+id/playImageView"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="24dp"
+                    android:src="@drawable/play_store"
+                    android:tooltipText="My Play Store Page" />
+
+                <ImageView
+                    android:id="@+id/githubImageView"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/github"
+                    android:tooltipText="My GitHub Profile" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
 </layout>

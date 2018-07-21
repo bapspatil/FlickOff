@@ -5,13 +5,15 @@ import bapspatil.flickoff.BR
 import bapspatil.flickoff.R
 import bapspatil.flickoff.databinding.ActivityAboutBinding
 import bapspatil.flickoff.ui.base.BaseActivity
+import bapspatil.flickoff.utils.GlideApp
 import kotlinx.android.synthetic.main.activity_about.*
 import org.jetbrains.anko.browse
 import javax.inject.Inject
 
 class AboutActivity : BaseActivity<ActivityAboutBinding, AboutViewModel>(), AboutNavigator {
 
-    @Inject lateinit var mAboutViewModel: AboutViewModel
+    @Inject
+    lateinit var mAboutViewModel: AboutViewModel
 
     override fun getBindingVariable(): Int = BR.viewModel
 
@@ -28,6 +30,13 @@ class AboutActivity : BaseActivity<ActivityAboutBinding, AboutViewModel>(), Abou
         mAboutViewModel.navigator = this
         aboutToolbar.title = ""
         setSupportActionBar(aboutToolbar)
+
+        GlideApp.with(this)
+                .load("https://github.com/bapspatil.png")
+                .placeholder(R.drawable.baps)
+                .error(R.drawable.baps)
+                .fallback(R.drawable.baps)
+                .into(bapsImageView)
         websiteImageView.setOnClickListener {
             browse("https://bapspatil.com")
         }
