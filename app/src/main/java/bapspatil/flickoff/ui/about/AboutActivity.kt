@@ -27,7 +27,7 @@ class AboutActivity : BaseActivity<ActivityAboutBinding, AboutViewModel>(), Abou
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mAboutViewModel.navigator = this
+        mAboutViewModel.setNavigator(this)
         aboutToolbar.title = ""
         setSupportActionBar(aboutToolbar)
 

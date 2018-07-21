@@ -6,23 +6,18 @@ package bapspatil.flickoff.ui.base
 
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
+import bapspatil.flickoff.ui.about.AboutNavigator
 
 import bapspatil.flickoff.utils.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
+import java.lang.ref.WeakReference
 
 abstract class BaseViewModel<N>(schedulerProvider: SchedulerProvider) : ViewModel() {
 
-    private val isLoading = ObservableBoolean(false)
-
-    lateinit var  mSchedulerProvider: SchedulerProvider
-    lateinit var compositeDisposable: CompositeDisposable
-
-    init {
-        mSchedulerProvider = schedulerProvider
-        compositeDisposable = CompositeDisposable()
-    }
-
-    var navigator: N? = null
+    val isLoading = ObservableBoolean(false)
+    var mSchedulerProvider: SchedulerProvider = schedulerProvider
+    var compositeDisposable: CompositeDisposable = CompositeDisposable()
+    lateinit var mNavigator: WeakReference<N>
 
     override fun onCleared() {
         compositeDisposable.dispose()
@@ -31,5 +26,11 @@ abstract class BaseViewModel<N>(schedulerProvider: SchedulerProvider) : ViewMode
 
     fun setIsLoading(isLoading: Boolean) {
         this.isLoading.set(isLoading)
+    }
+
+    fun getNavigator(): N? = mNavigator.get()
+
+    fun setNavigator(navigator: N) {
+        this.mNavigator = WeakReference(navigator)
     }
 }

@@ -21,9 +21,9 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppComp
 
     // this can probably depend on isLoading variable of BaseViewModel,
     // since its going to be common for all the activities
-    private val mProgressDialog: ProgressDialog? = null
-    private var viewDataBinding: T? = null
-    private var mViewModel: V? = null
+    val mProgressDialog: ProgressDialog? = null
+    var viewDataBinding: T? = null
+    var mViewModel: V? = null
     /**
      * Override for set binding variable
      *

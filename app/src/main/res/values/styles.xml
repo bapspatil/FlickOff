@@ -16,6 +16,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/exo_2_medium</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <!-- Theme for Details Activity to make the status bar transparent -->
@@ -25,6 +27,7 @@
 
     <style name="AppBarTheme" parent="AppTheme">
         <item name="colorPrimary">#FFF</item>
+        <item name="android:colorControlNormal">#000</item>
     </style>
 
 

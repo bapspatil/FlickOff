@@ -5,6 +5,7 @@ import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import bapspatil.flickoff.R
+import bapspatil.flickoff.ui.main.MainActivity
 import org.jetbrains.anko.intentFor
 
 class SplashScreenActivity : AppCompatActivity() {

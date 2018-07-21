@@ -1,10 +1,11 @@
 package bapspatil.flickoff.di.builder
 
 import bapspatil.flickoff.ui.DetailsActivity
-import bapspatil.flickoff.ui.MainActivity
+import bapspatil.flickoff.ui.main.MainActivity
 import bapspatil.flickoff.ui.SplashScreenActivity
 import bapspatil.flickoff.ui.about.AboutActivity
 import bapspatil.flickoff.ui.about.AboutActivityModule
+import bapspatil.flickoff.ui.main.MainActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -21,7 +22,7 @@ abstract class ActivityBuilder  {
     @ContributesAndroidInjector
     abstract fun bindDetailsActivity() : DetailsActivity
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [MainActivityModule::class])
     abstract fun bindMainActivity() : MainActivity
 
     @ContributesAndroidInjector

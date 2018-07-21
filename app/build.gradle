@@ -72,7 +72,7 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:4.7.1"
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.google.code.gson:gson:2.8.4'
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.github.arimorty:floatingsearchview:2.1.1'
 
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') { transitive = true } // Firebase Crashlytics
