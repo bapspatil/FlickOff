@@ -9,7 +9,7 @@ This app uses MVVM architecture with Dagger 2, RxJava, Android Architecture Comp
 
 ## Screenshots
 
-<img src="./design/screen0.png">&ensp;<img src="./design/screen1.png" width="23%">
+<img src="./design/screen0.png">&ensp;<img src="./design/screen1.png" width="24%">
 <img src="./design/screen2.png">&ensp;<img src="./design/screen3.png">
 <img src="./design/screen4.png">
 
