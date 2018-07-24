@@ -33,7 +33,7 @@ class MovieRecyclerViewAdapter(private val mMoviesArrayList: ArrayList<Movie>?) 
         private lateinit var mMovieItemViewModel: MovieItemViewModel
 
         override fun onItemClick(movie: Movie, imageView: ImageView) {
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(mItemMovieBinding.root.context as AppCompatActivity, imageView!!, "posterTransition")
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(mItemMovieBinding.root.context as AppCompatActivity, imageView, "posterTransition")
             val intent = Intent(mItemMovieBinding.root.context, DetailsActivity::class.java)
             intent.putExtra("movie", movie)
             startActivity(mItemMovieBinding.root.context, intent, options.toBundle())

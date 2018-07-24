@@ -25,6 +25,7 @@ import bapspatil.flickoff.ui.about.AboutActivity
 import bapspatil.flickoff.ui.base.BaseActivity
 import com.arlib.floatingsearchview.FloatingSearchView
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
+import jp.wasabeef.recyclerview.animators.LandingAnimator
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.longToast
 import javax.inject.Inject
@@ -71,7 +72,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
         val columns = 2
         val layoutManager = GridLayoutManager(applicationContext, columns)
         mActivityMainBinding?.moviesRecyclerView?.layoutManager = layoutManager
-        mActivityMainBinding?.moviesRecyclerView?.itemAnimator = DefaultItemAnimator()
+        mActivityMainBinding?.moviesRecyclerView?.itemAnimator = LandingAnimator()
         mActivityMainBinding?.moviesRecyclerView?.adapter = mAdapter
 
         subscribeToLiveData()
