@@ -30,11 +30,9 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppComp
      * @return variable id
      */
 
-
     /**
      * @return layout resource id
      */
-
 
     /**
      * Override for set view model
@@ -50,11 +48,9 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppComp
         get() = NetworkUtils.hasNetwork(applicationContext)!!
 
     override fun onFragmentAttached() {
-
     }
 
     override fun onFragmentDetached(tag: String) {
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

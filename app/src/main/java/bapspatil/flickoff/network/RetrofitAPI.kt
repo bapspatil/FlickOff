@@ -35,5 +35,4 @@ interface RetrofitAPI {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
     }
-
 }

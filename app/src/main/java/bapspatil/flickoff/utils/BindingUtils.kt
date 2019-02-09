@@ -45,5 +45,4 @@ object BindingUtils {
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageView)
     }
-
-}// Not publicly instantiable
+} // Not publicly instantiable

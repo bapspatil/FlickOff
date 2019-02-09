@@ -98,5 +98,4 @@ abstract class EndlessScrollListener : RecyclerView.OnScrollListener {
 
     // Defines the process for actually loading more data based on page
     abstract fun onLoadMore(page: Int, totalItemsCount: Int)
-
 }

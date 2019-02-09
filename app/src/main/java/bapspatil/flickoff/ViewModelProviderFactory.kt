@@ -1,6 +1,5 @@
 package bapspatil.flickoff
 
-
 /*
  ** Created by Bapusaheb Patil {@link https://bapspatil.com}
  */
@@ -16,5 +15,4 @@ class ViewModelProviderFactory<V : Any>(private val viewModel: V) : ViewModelPro
         }
         throw IllegalArgumentException("Unknown class name")
     }
-
 }

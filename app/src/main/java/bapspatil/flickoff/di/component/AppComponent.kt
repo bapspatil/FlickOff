@@ -17,12 +17,12 @@ import javax.inject.Singleton
 @Component(modules = [AndroidInjectionModule::class, AppModule::class, ActivityBuilder::class])
 interface AppComponent {
 
-    fun inject(flickOffApp: FlickOffApp) : FlickOffApp
+    fun inject(flickOffApp: FlickOffApp): FlickOffApp
 
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun application(application: Application) : Builder
+        fun application(application: Application): Builder
 
         fun build(): AppComponent
     }

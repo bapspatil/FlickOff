@@ -14,18 +14,17 @@ import dagger.android.ContributesAndroidInjector
 */
 
 @Module
-abstract class ActivityBuilder  {
+abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = [AboutActivityModule::class])
-    abstract fun bindAboutActivity() : AboutActivity
+    abstract fun bindAboutActivity(): AboutActivity
 
     @ContributesAndroidInjector
-    abstract fun bindDetailsActivity() : DetailsActivity
+    abstract fun bindDetailsActivity(): DetailsActivity
 
     @ContributesAndroidInjector(modules = [MainActivityModule::class])
-    abstract fun bindMainActivity() : MainActivity
+    abstract fun bindMainActivity(): MainActivity
 
     @ContributesAndroidInjector
-    abstract fun bindSplashScreenActivity() : SplashScreenActivity
-
+    abstract fun bindSplashScreenActivity(): SplashScreenActivity
 }

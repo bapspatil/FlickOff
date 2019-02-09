@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.transition.Slide
@@ -124,7 +123,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
         mActivityMainBinding?.moviesRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0) {// Scrolled up
+                if (dy > 0) { // Scrolled up
                     mActivityMainBinding?.bottomNavigation?.visibility = View.GONE
                 } else {
                     mActivityMainBinding?.bottomNavigation?.visibility = View.VISIBLE

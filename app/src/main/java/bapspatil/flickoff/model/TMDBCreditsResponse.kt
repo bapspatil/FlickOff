@@ -13,6 +13,7 @@ import java.util.*
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class TMDBCreditsResponse(
-        @SerializedName("cast") var cast: ArrayList<Cast>,
-        @SerializedName("crew") var crew: ArrayList<Crew>)
+    @SerializedName("cast") var cast: ArrayList<Cast>,
+    @SerializedName("crew") var crew: ArrayList<Crew>
+)
     : Parcelable

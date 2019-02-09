@@ -13,8 +13,9 @@ import java.util.*
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class TMDBResponse(
-        @SerializedName("page") var page: Int,
-        @SerializedName("results") var results: ArrayList<Movie>,
-        @SerializedName("total_results") var totalResults: Int,
-        @SerializedName("total_pages") var totalPages: Int)
+    @SerializedName("page") var page: Int,
+    @SerializedName("results") var results: ArrayList<Movie>,
+    @SerializedName("total_results") var totalResults: Int,
+    @SerializedName("total_pages") var totalPages: Int
+)
     : Parcelable

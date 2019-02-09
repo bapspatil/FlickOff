@@ -44,7 +44,7 @@ class DetailsActivity : AppCompatActivity() {
         setSupportActionBar(detailsToolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             window.navigationBarColor = ContextCompat.getColor(this, android.R.color.transparent)
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
         }
@@ -159,5 +159,4 @@ class DetailsActivity : AppCompatActivity() {
         val destDateFormat = SimpleDateFormat("MMM dd\nyyyy")
         return destDateFormat.format(date)
     }
-
 }

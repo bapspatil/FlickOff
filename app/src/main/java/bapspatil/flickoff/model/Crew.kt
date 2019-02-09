@@ -12,7 +12,7 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class Crew(
-        @SerializedName("job") var job: String,
-        @SerializedName("name") var name: String)
+    @SerializedName("job") var job: String,
+    @SerializedName("name") var name: String
+)
     : Parcelable
-

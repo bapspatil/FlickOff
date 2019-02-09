@@ -6,7 +6,6 @@ package bapspatil.flickoff.ui.base
 
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
-import bapspatil.flickoff.ui.about.AboutNavigator
 
 import bapspatil.flickoff.utils.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
