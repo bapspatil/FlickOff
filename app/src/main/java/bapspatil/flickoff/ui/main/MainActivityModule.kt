@@ -1,6 +1,6 @@
 package bapspatil.flickoff.ui.main
 
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
 import bapspatil.flickoff.ViewModelProviderFactory
 import bapspatil.flickoff.utils.rx.SchedulerProvider
 import dagger.Module

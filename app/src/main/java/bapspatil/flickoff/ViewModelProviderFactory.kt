@@ -4,8 +4,8 @@ package bapspatil.flickoff
  ** Created by Bapusaheb Patil {@link https://bapspatil.com}
  */
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 class ViewModelProviderFactory<V : Any>(private val viewModel: V) : ViewModelProvider.Factory {
 

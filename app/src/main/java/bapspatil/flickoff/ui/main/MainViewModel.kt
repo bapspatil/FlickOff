@@ -1,7 +1,7 @@
 package bapspatil.flickoff.ui.main
 
-import android.arch.lifecycle.MutableLiveData
-import android.databinding.ObservableArrayList
+import androidx.lifecycle.MutableLiveData
+import androidx.databinding.ObservableArrayList
 import bapspatil.flickoff.BuildConfig
 import bapspatil.flickoff.model.Movie
 import bapspatil.flickoff.model.TMDBResponse

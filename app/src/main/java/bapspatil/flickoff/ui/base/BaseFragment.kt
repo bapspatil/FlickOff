@@ -5,23 +5,22 @@ package bapspatil.flickoff.ui.base
  */
 
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import dagger.android.support.AndroidSupportInjection
 
 abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragment() {
 
-    var baseActivity: BaseActivity<*, *>? = null
+    private var baseActivity: BaseActivity<*, *>? = null
         private set
     private var mRootView: View? = null
-    var viewDataBinding: T? = null
+    private var viewDataBinding: T? = null
         private set
     private var mViewModel: V? = null
 
@@ -45,10 +44,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
      */
     abstract val viewModel: V
 
-    val isNetworkConnected: Boolean
-        get() = baseActivity != null && baseActivity!!.isNetworkConnected
-
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is BaseActivity<*, *>) {
             val activity = context as BaseActivity<*, *>?
@@ -79,12 +75,6 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding!!.setVariable(bindingVariable, mViewModel)
         viewDataBinding!!.executePendingBindings()
-    }
-
-    fun hideKeyboard() {
-        if (baseActivity != null) {
-            baseActivity!!.hideKeyboard()
-        }
     }
 
     private fun performDependencyInjection() {

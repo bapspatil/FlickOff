@@ -15,5 +15,5 @@ import java.util.*
 data class TMDBCreditsResponse(
     @SerializedName("cast") var cast: ArrayList<Cast>,
     @SerializedName("crew") var crew: ArrayList<Crew>
-)
-    : Parcelable
+) :
+    Parcelable

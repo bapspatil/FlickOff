@@ -11,18 +11,18 @@
             type="bapspatil.flickoff.ui.main.MainViewModel" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FAFAFA"
             android:fitsSystemWindows="true"
             app:elevation="0dp">
 
-            <android.support.design.widget.CollapsingToolbarLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -47,8 +47,8 @@
                     app:floatingSearch_searchHint="FlickOff"
                     app:floatingSearch_showSearchKey="true"
                     app:floatingSearch_viewTextColor="@color/black" />
-            </android.support.design.widget.CollapsingToolbarLayout>
-        </android.support.design.widget.AppBarLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,14 +62,14 @@
                 android:layout_height="0dp"
                 android:layout_weight="9">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/moviesRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scrollbarThumbVertical="@color/colorPrimary"
                     android:scrollbars="vertical"
                     app:adapter="@{viewModel.moviesObservableArrayList}"
-                    tools:layoutManager="android.support.v7.widget.GridLayoutManager"
+                    tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     tools:listitem="@layout/item_movie"
                     tools:spanCount="2" />
 
@@ -83,7 +83,7 @@
 
             </FrameLayout>
 
-            <android.support.design.widget.BottomNavigationView
+            <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNavigation"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -94,5 +94,5 @@
                 app:itemTextColor="@color/selector"
                 app:menu="@menu/menu_bottom_nav" />
         </LinearLayout>
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

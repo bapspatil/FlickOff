@@ -26,11 +26,11 @@ interface RetrofitAPI {
 
     companion object {
 
-        val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342"
-        val BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w500"
-        val BASE_URL = "https://api.themoviedb.org/3/"
+        const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342"
+        const val BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w500"
+        const val BASE_URL = "https://api.themoviedb.org/3/"
 
-        val retrofit = Retrofit.Builder()
+        val retrofit: Retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

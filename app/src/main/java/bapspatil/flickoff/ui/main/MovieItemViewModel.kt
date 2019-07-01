@@ -4,7 +4,7 @@ package bapspatil.flickoff.ui.main
  ** Created by Bapusaheb Patil {@link https://bapspatil.com}
  */
 
-import android.databinding.ObservableField
+import androidx.databinding.ObservableField
 import android.view.View
 import android.widget.ImageView
 import bapspatil.flickoff.model.Movie

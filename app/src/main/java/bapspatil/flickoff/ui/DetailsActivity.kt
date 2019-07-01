@@ -1,15 +1,16 @@
 package bapspatil.flickoff.ui
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.NavUtils
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.transition.Slide
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import bapspatil.flickoff.BuildConfig
 import bapspatil.flickoff.R
 import bapspatil.flickoff.adapters.CastRecyclerViewAdapter
@@ -20,6 +21,7 @@ import bapspatil.flickoff.model.TMDBCreditsResponse
 import bapspatil.flickoff.network.RetrofitAPI
 import bapspatil.flickoff.utils.GlideApp
 import bapspatil.flickoff.utils.NetworkUtils
+import com.google.android.material.appbar.AppBarLayout
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import kotlinx.android.synthetic.main.activity_details.*
 import org.jetbrains.anko.browse
@@ -29,6 +31,7 @@ import retrofit2.Response
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.abs
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -75,12 +78,12 @@ class DetailsActivity : AppCompatActivity() {
         collapsingToolbar.title = mMovie?.title
         collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(this, android.R.color.transparent))
         collapsingToolbar.setCollapsedTitleTextColor(ContextCompat.getColor(this, android.R.color.black))
-        appBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-            if (Math.abs(verticalOffset) - appBarLayout.totalScrollRange == 0)
+        appBar.addOnOffsetChangedListener(AppBarLayout.BaseOnOffsetChangedListener<AppBarLayout> { appBarLayout, verticalOffset ->
+            if (abs(verticalOffset) - appBarLayout!!.totalScrollRange == 0)
                 posterImageView!!.visibility = View.GONE
             else
                 posterImageView!!.visibility = View.VISIBLE
-        }
+        })
 
         fetchCredits()
 
@@ -147,6 +150,7 @@ class DetailsActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun prettifyDate(jsonDate: String): String {
         val sourceDateFormat = SimpleDateFormat("yyyy-MM-dd")
         var date: Date? = null

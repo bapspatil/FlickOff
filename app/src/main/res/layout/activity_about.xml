@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/aboutToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize">
@@ -38,7 +38,7 @@
                         android:textColor="@color/colorPrimaryDarker"
                         android:textStyle="bold" />
                 </FrameLayout>
-            </android.support.v7.widget.Toolbar>
+            </androidx.appcompat.widget.Toolbar>
 
             <ImageView
                 android:id="@+id/bapsImageView"

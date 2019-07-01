@@ -17,5 +17,5 @@ data class TMDBResponse(
     @SerializedName("results") var results: ArrayList<Movie>,
     @SerializedName("total_results") var totalResults: Int,
     @SerializedName("total_pages") var totalPages: Int
-)
-    : Parcelable
+) :
+    Parcelable

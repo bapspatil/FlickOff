@@ -8,12 +8,12 @@ import android.annotation.TargetApi
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.pm.PackageManager
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import bapspatil.flickoff.utils.NetworkUtils
 import dagger.android.AndroidInjection
 
@@ -21,9 +21,9 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppComp
 
     // this can probably depend on isLoading variable of BaseViewModel,
     // since its going to be common for all the activities
-    val mProgressDialog: ProgressDialog? = null
+    private val mProgressDialog: ProgressDialog? = null
     var viewDataBinding: T? = null
-    var mViewModel: V? = null
+    private var mViewModel: V? = null
     /**
      * Override for set binding variable
      *
@@ -68,7 +68,7 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppComp
         val view = this.currentFocus
         if (view != null) {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm?.hideSoftInputFromWindow(view.windowToken, 0)
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 
@@ -78,7 +78,7 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppComp
         }
     }
 
-    fun performDependencyInjection() {
+    private fun performDependencyInjection() {
         AndroidInjection.inject(this)
     }
 

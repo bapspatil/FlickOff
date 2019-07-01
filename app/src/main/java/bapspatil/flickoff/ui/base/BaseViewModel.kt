@@ -4,8 +4,8 @@ package bapspatil.flickoff.ui.base
  ** Created by Bapusaheb Patil {@link https://bapspatil.com}
  */
 
-import android.arch.lifecycle.ViewModel
-import android.databinding.ObservableBoolean
+import androidx.lifecycle.ViewModel
+import androidx.databinding.ObservableBoolean
 
 import bapspatil.flickoff.utils.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
@@ -13,10 +13,10 @@ import java.lang.ref.WeakReference
 
 abstract class BaseViewModel<N>(schedulerProvider: SchedulerProvider) : ViewModel() {
 
-    val isLoading = ObservableBoolean(false)
+    private val isLoading = ObservableBoolean(false)
     var mSchedulerProvider: SchedulerProvider = schedulerProvider
-    var compositeDisposable: CompositeDisposable = CompositeDisposable()
-    lateinit var mNavigator: WeakReference<N>
+    private var compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private lateinit var mNavigator: WeakReference<N>
 
     override fun onCleared() {
         compositeDisposable.dispose()

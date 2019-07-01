@@ -9,21 +9,22 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentManager
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.RelativeLayout
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 
 abstract class BaseDialog : DialogFragment() {
 
-    var baseActivity: BaseActivity<*, *>? = null
+    private var baseActivity: BaseActivity<*, *>? = null
         private set
 
     val isNetworkConnected: Boolean
         get() = baseActivity != null && baseActivity!!.isNetworkConnected
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         super.onAttach(context)
         if (context is BaseActivity<*, *>) {
             val mActivity = context as BaseActivity<*, *>?
@@ -59,7 +60,7 @@ abstract class BaseDialog : DialogFragment() {
         super.onDetach()
     }
 
-    override fun show(fragmentManager: FragmentManager, tag: String) {
+    override fun show(fragmentManager: FragmentManager, tag: String?) {
         val transaction = fragmentManager.beginTransaction()
         val prevFragment = fragmentManager.findFragmentByTag(tag)
         if (prevFragment != null) {

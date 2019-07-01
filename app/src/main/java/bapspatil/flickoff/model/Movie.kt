@@ -15,5 +15,5 @@ data class Movie(
     @SerializedName("vote_average") var rating: String,
     @SerializedName("id") var id: Int,
     @SerializedName("backdrop_path") var backdropPath: String
-)
-    : Parcelable
+) :
+    Parcelable

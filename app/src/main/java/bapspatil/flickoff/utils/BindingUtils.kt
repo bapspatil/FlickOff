@@ -4,9 +4,9 @@ package bapspatil.flickoff.utils
  ** Created by Bapusaheb Patil {@link https://bapspatil.com}
  */
 
-import android.databinding.BindingAdapter
-import android.support.v7.widget.RecyclerView
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import bapspatil.flickoff.R
 import bapspatil.flickoff.adapters.CastRecyclerViewAdapter
 import bapspatil.flickoff.model.Cast
@@ -21,7 +21,7 @@ object BindingUtils {
     @BindingAdapter("adapter")
     @JvmStatic
     fun addCastItems(recyclerView: RecyclerView, casts: ArrayList<Cast>) {
-        var adapter: CastRecyclerViewAdapter? = recyclerView.adapter as CastRecyclerViewAdapter?
+        val adapter: CastRecyclerViewAdapter? = recyclerView.adapter as CastRecyclerViewAdapter?
         adapter?.clearItems()
         adapter?.addItems(casts)
     }
@@ -29,7 +29,7 @@ object BindingUtils {
     @BindingAdapter("adapter")
     @JvmStatic
     fun addMovieItems(recyclerView: RecyclerView, movies: ArrayList<Movie>) {
-        var adapter: MovieRecyclerViewAdapter? = recyclerView.adapter as MovieRecyclerViewAdapter?
+        val adapter: MovieRecyclerViewAdapter? = recyclerView.adapter as MovieRecyclerViewAdapter?
         adapter?.clearItems()
         adapter?.addItems(movies)
     }

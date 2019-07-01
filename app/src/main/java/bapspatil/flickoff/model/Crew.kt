@@ -14,5 +14,5 @@ import kotlinx.android.parcel.Parcelize
 data class Crew(
     @SerializedName("job") var job: String,
     @SerializedName("name") var name: String
-)
-    : Parcelable
+) :
+    Parcelable

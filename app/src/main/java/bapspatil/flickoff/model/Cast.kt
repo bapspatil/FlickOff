@@ -14,5 +14,5 @@ import kotlinx.android.parcel.Parcelize
 data class Cast(
     @SerializedName("name") var name: String,
     @SerializedName("profile_path") var profilePath: String
-)
-    : Parcelable
+) :
+    Parcelable
