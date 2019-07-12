@@ -1,4 +1,4 @@
-package bapspatil.flickoff.ui
+package bapspatil.flickoff.ui.splash
 
 import android.os.Bundle
 import android.os.Handler
@@ -8,7 +8,8 @@ import bapspatil.flickoff.R
 import bapspatil.flickoff.ui.main.MainActivity
 import org.jetbrains.anko.intentFor
 
-class SplashScreenActivity : AppCompatActivity() {
+// TODO: Extend this to BaseActivity, implement SplashNavigator
+class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

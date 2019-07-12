@@ -1,4 +1,4 @@
-package bapspatil.flickoff.ui
+package bapspatil.flickoff.ui.details
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -18,7 +18,7 @@ import bapspatil.flickoff.adapters.CastRecyclerViewAdapter.OnActorClickHandler
 import bapspatil.flickoff.model.Cast
 import bapspatil.flickoff.model.Movie
 import bapspatil.flickoff.model.TMDBCreditsResponse
-import bapspatil.flickoff.network.RetrofitAPI
+import bapspatil.flickoff.network.TmdbApi
 import bapspatil.flickoff.utils.GlideApp
 import bapspatil.flickoff.utils.NetworkUtils
 import com.google.android.material.appbar.AppBarLayout
@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
 
+// TODO: Extend this to BaseActivity, implement DetailsNavigator
 class DetailsActivity : AppCompatActivity() {
 
     private var mMovie: Movie? = null
@@ -63,11 +64,11 @@ class DetailsActivity : AppCompatActivity() {
             titleTextView!!.text = mMovie?.title
             plotTextView!!.text = mMovie?.plot
             GlideApp.with(this)
-                    .load(RetrofitAPI.POSTER_BASE_URL + mMovie?.posterPath)
+                    .load(TmdbApi.POSTER_BASE_URL + mMovie?.posterPath)
                     .centerCrop()
                     .into(posterImageView!!)
             GlideApp.with(this)
-                    .load(RetrofitAPI.BACKDROP_BASE_URL + mMovie?.backdropPath)
+                    .load(TmdbApi.BACKDROP_BASE_URL + mMovie?.backdropPath)
                     .placeholder(R.drawable.tmdb_placeholder_land)
                     .error(R.drawable.tmdb_placeholder_land)
                     .fallback(R.drawable.tmdb_placeholder_land)
@@ -107,7 +108,7 @@ class DetailsActivity : AppCompatActivity() {
         })
         castRecyclerView!!.adapter = ScaleInAnimationAdapter(mCastAdapter)
 
-        val retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(applicationContext).create(RetrofitAPI::class.java)
+        val retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(applicationContext).create(TmdbApi::class.java)
         val creditsCall = retrofitAPI.getCredits(mMovie!!.id, BuildConfig.TMDB_API_TOKEN)
         creditsCall.enqueue(object : Callback<TMDBCreditsResponse> {
             override fun onResponse(call: Call<TMDBCreditsResponse>, response: Response<TMDBCreditsResponse>) {

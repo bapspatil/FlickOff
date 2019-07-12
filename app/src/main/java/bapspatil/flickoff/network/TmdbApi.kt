@@ -13,7 +13,7 @@ import retrofit2.http.Query
  * Created by bapspatil
  */
 
-interface RetrofitAPI {
+interface TmdbApi {
 
     @GET("movie/{type}")
     fun getMovies(@Path("type") TYPE: String, @Query("api_key") API_KEY: String, @Query("language") LANGUAGE: String, @Query("page") PAGE: Int): Call<TMDBResponse>
@@ -30,9 +30,10 @@ interface RetrofitAPI {
         const val BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w500"
         const val BASE_URL = "https://api.themoviedb.org/3/"
 
-        val retrofit: Retrofit = Retrofit.Builder()
+        fun create(): TmdbApi = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
+                .create(TmdbApi::class.java)
     }
 }

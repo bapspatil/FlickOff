@@ -3,7 +3,7 @@ package bapspatil.flickoff.utils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import bapspatil.flickoff.network.RetrofitAPI
+import bapspatil.flickoff.network.TmdbApi
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -36,7 +36,7 @@ object NetworkUtils {
         return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
-                .baseUrl(RetrofitAPI.BASE_URL)
+                .baseUrl(TmdbApi.BASE_URL)
                 .build()
     }
 }

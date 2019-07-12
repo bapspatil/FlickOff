@@ -19,13 +19,13 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.DetailsActivity"
+            android:name=".ui.details.DetailsActivity"
             android:parentActivityName=".ui.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Details">
         </activity>
         <activity
-            android:name=".ui.SplashScreenActivity"
+            android:name=".ui.splash.SplashActivity"
             android:launchMode="singleTop"
             android:noHistory="true"
             android:screenOrientation="portrait"

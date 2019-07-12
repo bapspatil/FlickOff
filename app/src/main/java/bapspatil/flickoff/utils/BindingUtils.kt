@@ -11,7 +11,7 @@ import bapspatil.flickoff.R
 import bapspatil.flickoff.adapters.CastRecyclerViewAdapter
 import bapspatil.flickoff.model.Cast
 import bapspatil.flickoff.model.Movie
-import bapspatil.flickoff.network.RetrofitAPI
+import bapspatil.flickoff.network.TmdbApi
 import bapspatil.flickoff.ui.main.MovieRecyclerViewAdapter
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import java.util.*
@@ -38,7 +38,7 @@ object BindingUtils {
     @JvmStatic
     fun setMoviePoster(imageView: ImageView, posterPath: String) {
         GlideApp.with(imageView.context)
-                .load(RetrofitAPI.POSTER_BASE_URL + posterPath)
+                .load(TmdbApi.POSTER_BASE_URL + posterPath)
                 .error(R.drawable.tmdb_placeholder)
                 .fallback(R.drawable.tmdb_placeholder)
                 .centerCrop()

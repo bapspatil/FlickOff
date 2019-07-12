@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import bapspatil.flickoff.R
 import bapspatil.flickoff.model.Cast
-import bapspatil.flickoff.network.RetrofitAPI
+import bapspatil.flickoff.network.TmdbApi
 import bapspatil.flickoff.utils.GlideApp
 import kotlinx.android.synthetic.main.rv_cast.view.*
 
@@ -27,7 +27,7 @@ class CastRecyclerViewAdapter(private val mContext: Context, private val mCastLi
     override fun onBindViewHolder(holder: CastViewHolder, position: Int) {
         holder.castTextView.text = mCastList[position].name
         GlideApp.with(mContext)
-                .load(RetrofitAPI.POSTER_BASE_URL + mCastList[position].profilePath)
+                .load(TmdbApi.POSTER_BASE_URL + mCastList[position].profilePath)
                 .placeholder(R.drawable.cast_placeholder)
                 .error(R.drawable.cast_placeholder)
                 .fallback(R.drawable.cast_placeholder)

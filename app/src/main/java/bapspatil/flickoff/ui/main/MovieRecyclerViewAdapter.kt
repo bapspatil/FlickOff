@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import bapspatil.flickoff.databinding.ItemMovieBinding
 import bapspatil.flickoff.model.Movie
-import bapspatil.flickoff.ui.DetailsActivity
+import bapspatil.flickoff.ui.details.DetailsActivity
 import bapspatil.flickoff.ui.base.BaseViewHolder
 
 class MovieRecyclerViewAdapter(private val mMoviesArrayList: ArrayList<Movie>?) : RecyclerView.Adapter<BaseViewHolder>() {
