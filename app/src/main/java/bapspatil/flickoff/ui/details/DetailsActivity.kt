@@ -13,8 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import bapspatil.flickoff.BuildConfig
 import bapspatil.flickoff.R
-import bapspatil.flickoff.adapters.CastRecyclerViewAdapter
-import bapspatil.flickoff.adapters.CastRecyclerViewAdapter.OnActorClickHandler
+import bapspatil.flickoff.ui.details.CastRecyclerViewAdapter.OnActorClickHandler
 import bapspatil.flickoff.model.Cast
 import bapspatil.flickoff.model.Movie
 import bapspatil.flickoff.model.TMDBCreditsResponse
@@ -48,12 +47,13 @@ class DetailsActivity : AppCompatActivity() {
         setSupportActionBar(detailsToolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+        window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            window.navigationBarColor = ContextCompat.getColor(this, android.R.color.transparent)
+            window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
         }
 
-        directorTextView.text = "N/A" // What if the director isn't available? Busy guy...
+        directorTextView.text = "N/A"
 
         val receivedIntent = intent
         if (receivedIntent.hasExtra("movie")) {
@@ -78,7 +78,7 @@ class DetailsActivity : AppCompatActivity() {
 
         collapsingToolbar.title = mMovie?.title
         collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(this, android.R.color.transparent))
-        collapsingToolbar.setCollapsedTitleTextColor(ContextCompat.getColor(this, android.R.color.black))
+        collapsingToolbar.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.colorAccent))
         appBar.addOnOffsetChangedListener(AppBarLayout.BaseOnOffsetChangedListener<AppBarLayout> { appBarLayout, verticalOffset ->
             if (abs(verticalOffset) - appBarLayout!!.totalScrollRange == 0)
                 posterImageView!!.visibility = View.GONE
@@ -96,16 +96,17 @@ class DetailsActivity : AppCompatActivity() {
         castRecyclerView!!.layoutManager = layoutManager
 
         val castList = ArrayList<Cast>()
-        val mCastAdapter = CastRecyclerViewAdapter(this, castList, object : OnActorClickHandler {
-            override fun onActorClicked(actorName: String) {
-                try {
-                    browse("https://www.google.com/search?q=$actorName movies")
-                } catch (e: Exception) {
-                    // Who doesn't have Google? Or a browser?
-                    e.printStackTrace()
+        val mCastAdapter =
+            CastRecyclerViewAdapter(this, castList, object : OnActorClickHandler {
+                override fun onActorClicked(actorName: String) {
+                    try {
+                        browse("https://www.google.com/search?q=$actorName movies")
+                    } catch (e: Exception) {
+                        // Who doesn't have Google? Or a browser?
+                        e.printStackTrace()
+                    }
                 }
-            }
-        })
+            })
         castRecyclerView!!.adapter = ScaleInAnimationAdapter(mCastAdapter)
 
         val retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(applicationContext).create(TmdbApi::class.java)

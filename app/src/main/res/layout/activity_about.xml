@@ -12,11 +12,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.Toolbar
@@ -35,7 +37,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/exo_2_medium"
                         android:text="@string/about_me"
-                        android:textColor="@color/colorPrimaryDarker"
+                        android:textColor="@color/colorAccent"
                         android:textStyle="bold" />
                 </FrameLayout>
             </androidx.appcompat.widget.Toolbar>
@@ -46,8 +48,7 @@
                 android:layout_height="128dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                android:contentDescription="@string/my_picture"
-                android:src="@drawable/baps" />
+                android:contentDescription="@string/my_picture"/>
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Display1"
@@ -57,7 +58,7 @@
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/exo_2_medium"
                 android:text="@string/bapusaheb_patil"
-                android:textColor="#000" />
+                android:textColor="@color/colorAccent" />
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Medium"
@@ -68,7 +69,7 @@
                 android:fontFamily="@font/exo_2_medium"
                 android:gravity="center"
                 android:text="@string/about_me_detail"
-                android:textColor="#000" />
+                android:textColor="@color/colorAccent" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

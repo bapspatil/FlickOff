@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context="bapspatil.flickoff.ui.splash.SplashActivity">
 
     <ImageView
@@ -28,7 +29,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/exo_2_medium"
         android:text="@string/app_name"
-        android:textColor="#000"
+        android:textColor="@color/colorAccent"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

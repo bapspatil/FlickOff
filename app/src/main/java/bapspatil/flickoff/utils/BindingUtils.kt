@@ -8,7 +8,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import bapspatil.flickoff.R
-import bapspatil.flickoff.adapters.CastRecyclerViewAdapter
+import bapspatil.flickoff.ui.details.CastRecyclerViewAdapter
 import bapspatil.flickoff.model.Cast
 import bapspatil.flickoff.model.Movie
 import bapspatil.flickoff.network.TmdbApi

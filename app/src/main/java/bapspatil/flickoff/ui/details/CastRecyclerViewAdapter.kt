@@ -1,4 +1,4 @@
-package bapspatil.flickoff.adapters
+package bapspatil.flickoff.ui.details
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -28,9 +28,6 @@ class CastRecyclerViewAdapter(private val mContext: Context, private val mCastLi
         holder.castTextView.text = mCastList[position].name
         GlideApp.with(mContext)
                 .load(TmdbApi.POSTER_BASE_URL + mCastList[position].profilePath)
-                .placeholder(R.drawable.cast_placeholder)
-                .error(R.drawable.cast_placeholder)
-                .fallback(R.drawable.cast_placeholder)
                 .into(holder.castImageView)
     }
 

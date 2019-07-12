@@ -29,7 +29,7 @@
             android:fontFamily="@font/exo_2_medium"
             android:gravity="center"
             android:padding="4dp"
-            android:textColor="#000"
+            android:textColor="@color/colorAccent"
             android:textSize="14sp"
             tools:text="Robert Downey Jr."/>
     </LinearLayout>

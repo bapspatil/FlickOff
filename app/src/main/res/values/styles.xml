@@ -5,9 +5,9 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:textColorTertiary">@color/white</item>
-        <item name="android:textColorPrimaryInverse">@color/black</item>
-        <item name="android:textColorSecondaryInverse">@color/black</item>
-        <item name="android:textColorTertiaryInverse">@color/black</item>
+        <item name="android:textColorPrimaryInverse">@color/colorAccent</item>
+        <item name="android:textColorSecondaryInverse">@color/colorAccent</item>
+        <item name="android:textColorTertiaryInverse">@color/colorAccent</item>
     </style>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppBaseTheme">
@@ -27,7 +27,7 @@
 
     <style name="AppBarTheme" parent="AppTheme">
         <item name="colorPrimary">@color/white</item>
-        <item name="android:colorControlNormal">@color/black</item>
+        <item name="android:colorControlNormal">@color/colorAccent</item>
     </style>
 
 

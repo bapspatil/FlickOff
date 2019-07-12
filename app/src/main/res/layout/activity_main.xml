@@ -1,98 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.main.MainActivity">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.main.MainActivity">
 
     <data>
 
         <variable
-            name="viewModel"
-            type="bapspatil.flickoff.ui.main.MainViewModel" />
+                name="viewModel"
+                type="bapspatil.flickoff.ui.main.MainViewModel"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FAFAFA"
-            android:fitsSystemWindows="true"
-            app:elevation="0dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                app:elevation="0dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapsingToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                android:theme="@style/AppBarTheme"
-                app:contentScrim="@color/colorPrimary"
-                app:expandedTitleMarginEnd="48dp"
-                app:expandedTitleMarginStart="48dp"
-                app:layout_scrollFlags="snap">
+                    android:id="@+id/collapsingToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    android:theme="@style/AppBarTheme"
+                    app:contentScrim="@color/colorPrimary"
+                    app:expandedTitleMarginEnd="48dp"
+                    app:expandedTitleMarginStart="48dp"
+                    app:layout_scrollFlags="snap">
 
                 <com.arlib.floatingsearchview.FloatingSearchView
-                    android:id="@+id/searchView"
-                    android:layout_width="match_parent"
-                    android:layout_height="?android:attr/actionBarSize"
-                    app:floatingSearch_backgroundColor="#FFF"
-                    app:floatingSearch_close_search_on_keyboard_dismiss="true"
-                    app:floatingSearch_dimBackground="false"
-                    app:floatingSearch_leftActionMode="showSearch"
-                    app:floatingSearch_menu="@menu/menu_main"
-                    app:floatingSearch_searchBarMarginLeft="8dp"
-                    app:floatingSearch_searchBarMarginRight="8dp"
-                    app:floatingSearch_searchHint="FlickOff"
-                    app:floatingSearch_showSearchKey="true"
-                    app:floatingSearch_viewTextColor="@color/black" />
+                        android:id="@+id/searchView"
+                        android:layout_width="match_parent"
+                        android:layout_height="?android:attr/actionBarSize"
+                        app:floatingSearch_backgroundColor="@color/white"
+                        app:floatingSearch_close_search_on_keyboard_dismiss="true"
+                        app:floatingSearch_dimBackground="false"
+                        app:floatingSearch_leftActionMode="showSearch"
+                        app:floatingSearch_menu="@menu/menu_main"
+                        app:floatingSearch_searchBarMarginLeft="8dp"
+                        app:floatingSearch_searchBarMarginRight="8dp"
+                        app:floatingSearch_searchHint="FlickOff"
+                        app:floatingSearch_showSearchKey="true"
+                        app:floatingSearch_viewTextColor="@color/colorAccent"/>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:animateLayoutChanges="true"
-            android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="9">
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="9">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/moviesRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbarThumbVertical="@color/colorPrimary"
-                    android:scrollbars="vertical"
-                    app:adapter="@{viewModel.moviesObservableArrayList}"
-                    tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    tools:listitem="@layout/item_movie"
-                    tools:spanCount="2" />
+                        android:id="@+id/moviesRecyclerView"
+                        android:layout_width="match_parent"
+                        android:background="@color/colorPrimary"
+                        android:layout_height="match_parent"
+                        android:scrollbarThumbVertical="@color/colorAccent"
+                        android:scrollbars="vertical"
+                        app:adapter="@{viewModel.moviesObservableArrayList}"
+                        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        tools:listitem="@layout/item_movie"
+                        tools:spanCount="2"/>
 
                 <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_gravity="center"
-                    android:theme="@style/Theme.AppCompat.Light"
-                    android:visibility="invisible" />
+                        android:id="@+id/progressBar"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        android:theme="@style/Theme.AppCompat.Light"
+                        android:visibility="invisible"/>
 
             </FrameLayout>
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigation"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@color/colorAccent"
-                app:itemBackground="?android:selectableItemBackground"
-                app:itemIconTint="@color/selector"
-                app:itemTextColor="@color/selector"
-                app:menu="@menu/menu_bottom_nav" />
+                    android:id="@+id/bottomNavigation"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    app:itemBackground="?android:selectableItemBackground"
+                    app:itemIconTint="@color/selector"
+                    app:itemTextColor="@color/selector"
+                    app:menu="@menu/menu_bottom_nav"/>
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

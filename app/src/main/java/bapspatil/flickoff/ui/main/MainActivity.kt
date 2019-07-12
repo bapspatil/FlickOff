@@ -3,7 +3,6 @@ package bapspatil.flickoff.ui.main
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
@@ -13,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -59,12 +59,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
         mMainViewModel?.setNavigator(this)
 
         window.exitTransition = Slide(Gravity.LEFT)
-        window.statusBarColor = Color.parseColor("#FFFFFF")
+        window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            window.navigationBarColor = Color.parseColor("#FFFFFF")
+            window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
 

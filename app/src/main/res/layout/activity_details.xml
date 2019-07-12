@@ -46,12 +46,14 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
+            app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="4dp"
             app:cardElevation="6dp"
             app:cardUseCompatPadding="true">
@@ -70,7 +72,7 @@
                     android:gravity="center"
                     android:paddingEnd="24dp"
                     android:paddingStart="24dp"
-                    android:textColor="#212121"
+                    android:textColor="@color/colorAccent"
                     android:textSize="32sp"
                     android:textStyle="bold"
                     tools:text="A Very Long Title Of The Movie"/>
@@ -96,7 +98,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="RATING"
-                            android:textColor="#212121"
+                            android:textColor="@color/colorAccent"
                             android:textSize="12sp"/>
 
                         <TextView
@@ -104,7 +106,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="24dp"
-                            android:textColor="#212121"
+                            android:textColor="@color/colorAccent"
                             android:textSize="26sp"
                             tools:text="10.0"/>
                     </FrameLayout>
@@ -120,7 +122,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="RELEASE"
-                            android:textColor="#212121"
+                            android:textColor="@color/colorAccent"
                             android:textSize="12sp"/>
 
                         <TextView
@@ -128,7 +130,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:textColor="#212121"
+                            android:textColor="@color/colorAccent"
                             android:textSize="20sp"
                             tools:text="Dec 13\n1989"/>
                     </FrameLayout>
@@ -144,7 +146,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="DIRECTOR"
-                            android:textColor="#212121"
+                            android:textColor="@color/colorAccent"
                             android:textSize="12sp"/>
 
                         <TextView
@@ -152,7 +154,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:textColor="#212121"
+                            android:textColor="@color/colorAccent"
                             android:textSize="20sp"
                             tools:text="Steven Spielberg"/>
                     </FrameLayout>
@@ -169,7 +171,7 @@
                     android:paddingBottom="16dp"
                     android:paddingEnd="24dp"
                     android:paddingStart="24dp"
-                    android:textColor="#212121"
+                    android:textColor="@color/colorAccent"
                     android:textSize="16sp"
                     tools:text="This is gonna be a plot synopsis of the mMovie. This data will be fetched by the TMDB API. And this will contain info of the mMovie script."/>
 
@@ -179,7 +181,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:text="@string/cast"
-                    android:textColor="#000"
+                    android:textColor="@color/colorAccent"
                     android:textSize="14sp"
                     android:textStyle="bold"/>
 

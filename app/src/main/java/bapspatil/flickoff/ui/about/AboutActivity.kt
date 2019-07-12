@@ -1,6 +1,9 @@
 package bapspatil.flickoff.ui.about
 
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import androidx.core.content.ContextCompat
 import bapspatil.flickoff.BR
 import bapspatil.flickoff.R
 import bapspatil.flickoff.databinding.ActivityAboutBinding
@@ -30,12 +33,17 @@ class AboutActivity : BaseActivity<ActivityAboutBinding, AboutViewModel>(), Abou
         mAboutViewModel.setNavigator(this)
         aboutToolbar.title = ""
         setSupportActionBar(aboutToolbar)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         GlideApp.with(this)
                 .load("https://github.com/bapspatil.png")
-                .placeholder(R.drawable.baps)
-                .error(R.drawable.baps)
-                .fallback(R.drawable.baps)
                 .into(bapsImageView)
         websiteImageView.setOnClickListener {
             browse("https://bapspatil.com")
