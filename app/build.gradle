@@ -5,14 +5,14 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "29.0.1"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "bapspatil.flickoff"
         minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 14
-        versionName "1.3.3"
+        targetSdkVersion 29
+        versionCode 15
+        versionName "1.3.4"
         multiDexEnabled true
     }
     dataBinding {
@@ -64,23 +64,23 @@ dependencies {
     
     // Android Support Library
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0-beta01'
-    implementation 'com.google.android.material:material:1.1.0-alpha08'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-rc01'
+    implementation 'com.google.android.material:material:1.2.0-alpha01'
 
     // App Dependencies
     implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     kapt "com.github.bumptech.glide:compiler:4.9.0"
-    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.github.arimorty:floatingsearchview:2.1.1'
 
     // Firebase
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1' // Firebase Crashlytics
-    implementation "com.google.firebase:firebase-core:17.0.1" // Firebase Analytics
-    implementation "com.google.firebase:firebase-messaging:19.0.1" // Firebase Cloud Messaging
+    implementation "com.google.firebase:firebase-core:17.2.1" // Firebase Analytics
+    implementation "com.google.firebase:firebase-messaging:20.0.0" // Firebase Cloud Messaging
 
     // Dagger 2
     implementation "com.google.dagger:dagger:$dagger"
@@ -90,11 +90,11 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger"
 
     // Architecture Components
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.1.0'
 
     // Reactive
-    implementation "io.reactivex.rxjava2:rxjava:2.2.10"
+    implementation "io.reactivex.rxjava2:rxjava:2.2.11"
     implementation "io.reactivex.rxjava2:rxkotlin:2.2.0"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
 }
